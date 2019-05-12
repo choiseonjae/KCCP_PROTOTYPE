@@ -28,31 +28,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         backPressCloseHandler = new BackPressCloseHandler(this);
         //로그인 되어있으면 바로 홈으로 아니면, 회원가입/로그인 뜨는 창으로
-//        if(isLogined()){
-//            FirebaseDatabase database = FirebaseDatabase.getInstance();
-//            final DatabaseReference table_user = database.getReference("User");
-//            table_user.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    User user = dataSnapshot.child(edtPhone).getValue(User.class);
-//                    Intent homeIntent = new Intent(MainActivity.this, Home.class);
-//                    Common.currentUser = user;
-//                    Toast.makeText(MainActivity.this, user.getName()+"님 환영합니다!", Toast.LENGTH_SHORT).show();
-//                    startActivity(homeIntent);
-//                    finish();
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-//        }
-//        else{
+        if(isLogined()){
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference table_user = database.getReference("User");
+            table_user.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.child(edtPhone).getValue(User.class);
+                    Intent homeIntent = new Intent(MainActivity.this, Home.class);
+                    Common.currentUser = user;
+                    Toast.makeText(MainActivity.this, user.getName()+"님 환영합니다!", Toast.LENGTH_SHORT).show();
+                    startActivity(homeIntent);
+                    finish();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else{
             Intent startIntent   = new Intent(MainActivity.this, StartActivity.class);
             startActivity(startIntent);
             finish();
-//        }
+        }
         txtSlogan = findViewById(R.id.txtSlogan);
         Typeface face = Typeface.createFromAsset(getAssets(),"fonts/NABILA.TTF");
         txtSlogan.setTypeface(face);

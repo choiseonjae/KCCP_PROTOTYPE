@@ -58,11 +58,12 @@ public class SignIn extends AppCompatActivity {
                             User user = dataSnapshot.child(logId.getText().toString()).getValue(User.class);
                             if (user.getPassword().equals(logPassword.getText().toString())){
                                 if(edtCheck.isChecked()){
-                                    //phone, password 일치시, 자동 로그인에 필요한 정보 저장
+                                    //phone, password 일치시, 자동 로그인에 필요한 정보
+                                    Log.d("LOG", "자동로그인!");
                                     SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = pref.edit();
                                     editor.putString("edtPhone", logId.getText().toString());
-                                    editor.putString("logPassword", logPassword.getText().toString());
+                                    editor.putString("edtPassword", logPassword.getText().toString());
                                     editor.apply();
                                 }
 
