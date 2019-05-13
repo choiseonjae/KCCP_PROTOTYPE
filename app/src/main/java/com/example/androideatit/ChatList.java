@@ -178,6 +178,7 @@ public class ChatList extends AppCompatActivity {
         chatRef.addChildEventListener(new ChildEventListener() {  // message는 child의 이벤트를 수신합니다.
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+               // dataSnapshot.child("").exists() 존재확인
 
                 ChatRelation cd = dataSnapshot.getValue(ChatRelation.class);
                 Log.e("!!!==========", "여기서 시작");

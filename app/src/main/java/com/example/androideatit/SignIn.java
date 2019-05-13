@@ -50,12 +50,21 @@ public class SignIn extends AppCompatActivity {
                 table_user.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        //Check if user not exist in database
+                        //아이디 존재 확인
                         if (dataSnapshot.child(logId.getText().toString()).exists()) {
                             //Get User information
                             mDialog.dismiss();
                             User user = dataSnapshot.child(logId.getText().toString()).getValue(User.class);
+
+                            // 비밀번호 동일
                             if (user.getPassword().equals(logPassword.getText().toString())){
+
+                                String name = user.getName();
+
+                                // ID, 이름 저장
+                                Information.setUserName(name);
+                                Information.setUserId(logId.getText().toString());
+
                                 if(edtCheck.isChecked()){
                                     //phone, password 일치시, 자동 로그인에 필요한 정보
                                     Log.d("LOG", "자동로그인!");
@@ -65,12 +74,11 @@ public class SignIn extends AppCompatActivity {
                                     editor.putString("userPassword", logPassword.getText().toString());
                                     editor.apply();
                                 }
-                                String name = user.getName();
+
                                 Toast.makeText(SignIn.this, name+"님 환영합니다!", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent = new Intent(SignIn.this, Home.class);
-                                // ID, 이름 저장
-                                Information.setUserName(name);
-                                Information.setUserId(logId.getText().toString());
+
+                                Log.e("이름 확인 합니다.",Information.getUserId());
                                 startActivity(homeIntent);
                                 finish();
                             }

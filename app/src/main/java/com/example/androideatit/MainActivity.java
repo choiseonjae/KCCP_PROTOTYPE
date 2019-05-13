@@ -30,14 +30,17 @@ public class MainActivity extends AppCompatActivity {
         backPressCloseHandler = new BackPressCloseHandler(this);
         //로그인 되어있으면 바로 홈으로 아니면, 회원가입/로그인 뜨는 창으로
         if(isLogined()){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference table_user = database.getReference("User");
-            table_user.addValueEventListener(new ValueEventListener() {
+
+            Information.getDatabase("User").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.child(userID).getValue(User.class);
                     Intent homeIntent = new Intent(MainActivity.this, Home.class);
+
+                    // id 이름 저장
                     Information.setUserName(user.getName());
+                    Information.setUserId(userID);
+
                     Toast.makeText(MainActivity.this, user.getName()+"님 환영합니다!", Toast.LENGTH_SHORT).show();
                     startActivity(homeIntent);
                     finish();
