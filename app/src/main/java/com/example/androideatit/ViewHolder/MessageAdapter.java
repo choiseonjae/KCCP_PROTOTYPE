@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.androideatit.Information;
 import com.example.androideatit.Model.ChatData;
 import com.example.androideatit.Model.ChatData;
 import com.example.androideatit.Model.User;
@@ -72,10 +73,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     @Override
     public int getItemViewType(int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (mChat.get(position).getSender().equals(firebaseUser.getUid())) {
-            return MSG_TYPE_LEFT;
-        } else {
+        if (mChat.get(position).getSender().equals(Information.getUserName())) {
             return MSG_TYPE_RIGHT;
+        } else {
+            return MSG_TYPE_LEFT;
         }
 
     }

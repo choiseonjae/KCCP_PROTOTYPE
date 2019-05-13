@@ -33,7 +33,7 @@ public class ChatList extends AppCompatActivity {
     final Context context = this;
 
     // 사용자 이름름
-    String hostName = Information.getUserName();
+    String hostName = Information.getUserName(), hostId = Information.getUserId();
 
 
     ArrayAdapter adapter;
