@@ -16,6 +16,7 @@ public class Information {
     public final static String CHAT_RERALTION = "chat_relation";
     public final static String CHAT_INFOMAION = "chat_contents";
 
+
     private static final StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://kccp-a4bd9.appspot.com");
 
     private static String USER_NAME;
