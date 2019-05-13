@@ -59,10 +59,6 @@ public class ChatList extends AppCompatActivity {
 
     }
 
-    // 두개의 스트링을 합치기
-    private String integrate(String hostName, String username) {
-        return hostName.compareTo(username) > 0 ? hostName + ", " + username : username + ", " + hostName;
-    }
 
     public void alertListen(String title, String message) {
         alert = new AlertDialog.Builder(this);
@@ -90,7 +86,7 @@ public class ChatList extends AppCompatActivity {
 
                 cr.setUser1(hostName);
                 cr.setUser2(username);
-                cr.setChatName(integrate(cr.getUser1(), cr.getUser2()));
+                cr.setChatName(Information.integrate(cr.getUser1(), cr.getUser2()));
 
                 databaseReference.child(cr.getChatName()).setValue(cr);
             }
@@ -117,7 +113,7 @@ public class ChatList extends AppCompatActivity {
 
 
                 String user = userList.get(position), host = hostName;
-                final String chatName = integrate(user, host);
+                final String chatName = Information.integrate(user, host);
 
                 final CharSequence[] items = {"채팅방 이름 설정", "나가기"};
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
