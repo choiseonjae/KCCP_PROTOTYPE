@@ -157,14 +157,14 @@ public class Register extends Activity {
                             // 파일 올리기에 성공 하면 DB에도 해당 파일의 메타 데이터를 저장
                             Board board = new Board();
 
-                            board.userId = Information.getUserId();
-                            board.boardId = boardID;
-                            board.title = title.getText().toString();
-                            board.date = Information.timeStamp();
-                            board.content = content.getText().toString();
-                            board.filename = filename;
-                            board.userName = Information.getUserName();
-                            board.uri = uri.toString();
+                            board.setUserId(Information.getUserId());
+                            board.setBoardId(boardID);
+                            board.setTitle(title.getText().toString());
+                            board.setDate(Information.timeStamp());
+                            board.setContent(content.getText().toString());
+                            board.setFilename(filename);
+                            board.setUserName(Information.getUserName());
+                            board.setUri(uri.toString());
 
                             database.child(townName).push().setValue(board);
                         }

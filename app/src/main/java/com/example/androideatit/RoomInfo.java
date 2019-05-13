@@ -38,16 +38,16 @@ public class RoomInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Log.e("아이디 : ", Information.getUserId());
-        Log.e("글 아이디 : ", board.userId);
+        Log.e("글 아이디 : ", board.getUserId());
 
-        if (!board.userId.equals(Information.getUserId())) {
+        if (!board.getUserId().equals(Information.getUserId())) {
             setContentView(R.layout.activity_roominfo);
 
             // 폰 번호 알아오기
             Information.getDatabase("User").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    User id = dataSnapshot.child(board.userId).getValue(User.class);
+                    User id = dataSnapshot.child(board.getUserId()).getValue(User.class);
                     phoneNumber = id.getPhone();
                 }
 
@@ -70,7 +70,10 @@ public class RoomInfo extends AppCompatActivity {
             chat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(RoomInfo.this, ChatList.class));
+                    Intent intent = new Intent(RoomInfo.this, Chatting.class);
+                    intent.putExtra("USER_NAME",board.getUserName());
+                    intent.putExtra("USER_ID",board.getUserId());
+                    startActivity(intent);
                 }
             });
 
@@ -110,10 +113,10 @@ public class RoomInfo extends AppCompatActivity {
         TextView textView2 = (TextView) findViewById(R.id.textView2);
         ImageView imageView = (ImageView) findViewById(R.id.imageview);
 
-        textView1.setText(board.title);
-        textView2.setText(board.content);
+        textView1.setText(board.getTitle());
+        textView2.setText(board.getContent());
 
-        Picasso.with(getApplicationContext()).load(board.uri).fit().centerInside().into(imageView);
+        Picasso.with(getApplicationContext()).load(board.getUri()).fit().centerInside().into(imageView);
 
     }
 

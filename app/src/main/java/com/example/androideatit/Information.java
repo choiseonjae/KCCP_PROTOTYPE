@@ -10,6 +10,13 @@ import java.util.Date;
 
 public class Information {
 
+    private Information() {
+    }
+
+    public final static String CHAT_RERALTION = "chat_relation";
+    public final static String CHAT_INFOMAION = "chat_contents";
+
+
     private static final StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://kccp-a4bd9.appspot.com");
 
     private static String USER_NAME;
@@ -61,6 +68,12 @@ public class Information {
         return FirebaseDatabase.getInstance().getReference(ref);
     }
 
+
+    // 두개의 스트링을 합치기
+    public static String integrate(String hostName, String username) {
+        return hostName.compareTo(username) > 0 ? hostName + ", " + username : username + ", " + hostName;
+    }
+
     public static StorageReference getStorageRef() {
         return storageRef;
     }
@@ -76,6 +89,11 @@ public class Information {
     public static String timeStamp() {
         return new SimpleDateFormat("yyyyMMHH_mmss").format(new Date());
     }
+
+    public static String chatTimeStamp() {
+        return new SimpleDateFormat("yyyy-mm-dd hh:mm:ss").format(new Date(System.currentTimeMillis()));
+    }
+
 
 
 }
