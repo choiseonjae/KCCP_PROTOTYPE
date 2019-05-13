@@ -1,14 +1,18 @@
 package com.example.androideatit;
 
+import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +28,7 @@ import com.example.androideatit.Interface.ItemClickListener;
 import com.example.androideatit.Model.Category;
 import com.example.androideatit.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -77,7 +82,7 @@ public class Home extends AppCompatActivity
         //Set Name for user
         View headerView = navigationView.getHeaderView(0);
         txtFullName = headerView.findViewById(R.id.txtFullName);
-        txtFullName.setText(Common.currentUser.getName());
+        txtFullName.setText(Information.getUserName());
 
         //Load menu
         recycler_menu = findViewById(R.id.recycler_menu);
@@ -152,15 +157,33 @@ public class Home extends AppCompatActivity
             startActivity(intent);
         }
         if (id == R.id.nav_log_out) {
-            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.remove("edtPhone");
-            editor.remove("edtPassword");
-            editor.apply();
+            AlertDialog.Builder alertdialog = new AlertDialog.Builder(Home.this);
+            alertdialog.setTitle("로그아웃");
+            alertdialog.setMessage("로그아웃 하시겠습니까?");
+            // 게시할 때
+            alertdialog.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.remove("userID");
+                    editor.remove("userPassword");
+                    editor.apply();
 
-            Toast.makeText(this, "로그아웃이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Home.this, MainActivity.class);
-            startActivity(intent);
+                    Toast.makeText(Home.this, "로그아웃이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Home.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+            // 게시 안하는 경우
+            alertdialog.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //Do nothing
+                }
+            });
+            // 다이얼로그 보여줌
+            alertdialog.show();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

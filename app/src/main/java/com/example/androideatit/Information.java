@@ -10,9 +10,6 @@ import java.util.Date;
 
 public class Information {
 
-    private Information() {
-    }
-
     private static final StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://kccp-a4bd9.appspot.com");
 
     private static String USER_NAME;

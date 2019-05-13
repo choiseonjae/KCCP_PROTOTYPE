@@ -26,7 +26,6 @@ public class SignIn extends AppCompatActivity {
     EditText logId, logPassword;
     CheckBox edtCheck;
     Button btnSignIn;
-    public static String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,17 +61,16 @@ public class SignIn extends AppCompatActivity {
                                     Log.d("LOG", "자동로그인!");
                                     SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                                     SharedPreferences.Editor editor = pref.edit();
-                                    editor.putString("edtPhone", logId.getText().toString());
-                                    editor.putString("edtPassword", logPassword.getText().toString());
+                                    editor.putString("userID", logId.getText().toString());
+                                    editor.putString("userPassword", logPassword.getText().toString());
                                     editor.apply();
                                 }
-
-                                Toast.makeText(SignIn.this, user.getName()+"님 환영합니다!", Toast.LENGTH_SHORT).show();
+                                String name = user.getName();
+                                Toast.makeText(SignIn.this, name+"님 환영합니다!", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent = new Intent(SignIn.this, Home.class);
                                 // ID, 이름 저장
-                                Information.setUserName(user.getName());
+                                Information.setUserName(name);
                                 Information.setUserId(logId.getText().toString());
-                                Common.currentUser = user;
                                 startActivity(homeIntent);
                                 finish();
                             }

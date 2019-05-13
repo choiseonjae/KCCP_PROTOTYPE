@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     private BackPressCloseHandler backPressCloseHandler;
-    private String edtPhone, edtPassword;
+    private String userID;
     TextView txtSlogan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
             table_user.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.child(edtPhone).getValue(User.class);
+                    User user = dataSnapshot.child(userID).getValue(User.class);
                     Intent homeIntent = new Intent(MainActivity.this, Home.class);
-                    Common.currentUser = user;
+                    Information.setUserName(user.getName());
                     Toast.makeText(MainActivity.this, user.getName()+"님 환영합니다!", Toast.LENGTH_SHORT).show();
                     startActivity(homeIntent);
                     finish();
@@ -64,9 +65,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isLogined(){
+        String userPassword;
         SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        edtPhone = pref.getString("edtPhone", null);
-        edtPassword = pref.getString("edtPassword", null);
-        return edtPhone != null && edtPassword != null;
+        userID = pref.getString("userID", null);
+        userPassword = pref.getString("userPassword", null);
+        Log.d("LOG", userID + " " + userPassword);
+        return userID != null && userPassword != null;
     }
 }
