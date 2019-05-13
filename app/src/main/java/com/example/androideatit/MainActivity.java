@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         backPressCloseHandler = new BackPressCloseHandler(this);
-        //로그인 되어있으면 바로 홈으로 아니면, 회원가입/로그인 뜨는 창으로
+        //자동 로그인 되어있으면 바로 홈으로 아니면, 회원가입/로그인 뜨는 창으로 이동
         if(isLogined()){
 
             Information.getDatabase("User").addValueEventListener(new ValueEventListener() {

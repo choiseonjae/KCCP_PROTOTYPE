@@ -165,6 +165,7 @@ public class Register extends Activity {
                             board.setFilename(filename);
                             board.setUserName(Information.getUserName());
                             board.setUri(uri.toString());
+                            board.setLocation(townName);
 
                             database.child(townName).push().setValue(board);
                         }

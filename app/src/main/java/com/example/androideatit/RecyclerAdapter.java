@@ -37,6 +37,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         return new ItemViewHolder(view);
     }
 
+    public void remove(int boardId){
+        for(Board b : mBoard)
+            if(b.getBoardId() == boardId)
+                mBoard.remove(mBoard.indexOf(b));
+    }
+
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
@@ -50,6 +56,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         // RecyclerView의 총 개수 입니다.
         return mBoard.size();
     }
+
 
     void add(Board board) {
         // 외부에서 item을 추가시킬 함수입니다.

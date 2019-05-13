@@ -15,6 +15,15 @@ public class Board implements Serializable { //저거 implements intent에서 �
     private String filename;
     private String uri;
     private String userName;
+    private String location;
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public int getBoardId() {
         return boardId;

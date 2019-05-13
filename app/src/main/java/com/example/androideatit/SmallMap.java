@@ -80,10 +80,17 @@ public class SmallMap extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                // listview 갱신.
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Board board = dataSnapshot.getValue(Board.class);
+                Log.e("삭제 : ", board.getTitle());
+                adapter.remove(board.getBoardId());
+                // listview 갱신.
+                adapter.notifyDataSetChanged();
             }
 
             @Override

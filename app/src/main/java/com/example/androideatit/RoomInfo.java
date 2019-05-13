@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,10 +18,16 @@ import android.widget.Toast;
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.Model.BoardID;
 import com.example.androideatit.Model.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 
@@ -71,8 +78,8 @@ public class RoomInfo extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(RoomInfo.this, Chatting.class);
-                    intent.putExtra("USER_NAME",board.getUserName());
-                    intent.putExtra("USER_ID",board.getUserId());
+                    intent.putExtra("USER_NAME", board.getUserName());
+                    intent.putExtra("USER_ID", board.getUserId());
                     startActivity(intent);
                 }
             });
@@ -85,8 +92,7 @@ public class RoomInfo extends AppCompatActivity {
             });
 
 
-        }
-        else {
+        } else {
             setContentView(R.layout.activity_my_room_info);
 
             LinearLayout change = (LinearLayout) findViewById(R.id.change_board);
@@ -99,10 +105,68 @@ public class RoomInfo extends AppCompatActivity {
                 }
             });
 
+            //'삭제하기'버튼 클릭했을때 사진 삭제
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getApplicationContext(), "delete", Toast.LENGTH_LONG).show();
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(RoomInfo.this);
+
+                    alert.setTitle("게시글 삭제");
+                    alert.setMessage("게시글을 삭제하시겠습니까?\n한번 삭제하면 취소할 수 없습니다.");
+
+                    alert.setPositiveButton("네", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // Create a reference to the file to delete
+                            StorageReference desertRef = Information.getStorageRef().child("room/" + board.getFilename());
+                            ;
+                            // Delete the file
+                            desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.e("삭제 완료 : ", board.getFilename());
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    Log.e("삭제 실패 : ", board.getFilename());
+                                }
+                            });
+
+                            // DB 삭제
+                            DatabaseReference ref = Information.getDatabase(Information.ROOM).child(board.getLocation());
+                            Query applesQuery = ref.orderByChild("boardId").equalTo(board.getBoardId());
+
+
+                            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
+                                        Log.e("appleSnapshot 확인 : ", appleSnapshot.getValue().toString());
+                                        appleSnapshot.getRef().removeValue();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+
+
+                            Toast.makeText(getApplicationContext(), "삭제 완료", Toast.LENGTH_LONG).show();
+                            finish();
+
+
+                        }
+                    });
+                    alert.setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            Toast.makeText(getApplicationContext(), "취소", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    alert.show();
+
                 }
             });
 
