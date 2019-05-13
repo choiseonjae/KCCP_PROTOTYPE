@@ -85,11 +85,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         }
 
         void onBind(Board board) {
-            textView1.setText(board.title);
-            textView2.setText(board.content);
+            textView1.setText(board.getTitle());
+            textView2.setText(board.getContent());
             this.board = board;
 
-            Picasso.with(context).load(board.uri).fit().centerInside().into(imageView);
+            Picasso.with(context).load(board.getUri()).fit().centerInside().into(imageView);
 
 
 

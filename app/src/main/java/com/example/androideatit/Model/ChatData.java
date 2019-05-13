@@ -1,5 +1,10 @@
 package com.example.androideatit.Model;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class ChatData {
 
     private String sender = "", message = "", receiver = "", time = "";
@@ -35,5 +40,17 @@ public class ChatData {
     public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
+
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("sender", sender);
+        result.put("receiver", receiver);
+        result.put("time", time);
+        result.put("message", message);
+        return result;
+    }
+
 }
 

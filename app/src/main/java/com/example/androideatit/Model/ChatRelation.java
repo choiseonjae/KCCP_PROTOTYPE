@@ -2,35 +2,21 @@ package com.example.androideatit.Model;
 
 public class ChatRelation {
 
-    private  String chatName = "";
+    private String userId = "", userName;
 
-    private String user1 = "";
-
-    private String user2 = "";
-
-    public String getUser1() {
-        return user1;
+    public String getUserId() {
+        return userId;
     }
 
-    public String getChatName() {
-        return chatName;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setChatName(String chatName) {
-        this.chatName = chatName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser1(String user1) {
-        this.user1 = user1;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-
-    public String getUser2() {
-        return user2;
-    }
-
-    public void setUser2(String user2) {
-        this.user2 = user2;
-    }
-
-
 }

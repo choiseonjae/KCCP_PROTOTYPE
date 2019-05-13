@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.androideatit.Model.ChatData;
+import com.example.androideatit.Model.ChatRelation;
 import com.example.androideatit.ViewHolder.MessageAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -45,10 +47,11 @@ public class Chatting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
 
-        Intent intent = getIntent();
+        userId = getIntent().getExtras().getString("USER_ID");
+        hostId = Information.getUserId();
 
-        userId = intent.getStringExtra("user");
-        hostId = intent.getStringExtra("host");
+//        userName = intent.getStringExtra("user");
+//        hostId = intent.getStringExtra("host");
         chatName = Information.integrate(hostId, userId);
 
         send = findViewById(R.id.send); // 보내기 버튼
@@ -66,6 +69,17 @@ public class Chatting extends AppCompatActivity {
                 chatData.setSender(hostId);
                 chatData.setReceiver(userId);
                 chatData.setMessage(write.getText().toString());
+
+                ChatRelation cr = new ChatRelation();
+                cr.setUserId(userId);
+                cr.setUserName("");
+                relationRef.child(hostId).push().setValue(cr);
+
+                ChatRelation cr2 = new ChatRelation();
+                cr2.setUserId(hostId);
+                cr2.setUserName("");
+                relationRef.child(userId).push().setValue(cr2);
+
                 // 현재 시간
                 chatData.setTime(Information.chatTimeStamp());
 

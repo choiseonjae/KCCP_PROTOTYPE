@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,20 +15,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androideatit.Model.ChatData;
 import com.example.androideatit.Model.ChatRelation;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatList extends AppCompatActivity {
 
-    //firebase 와 연결
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference("chat_relation");
+    private DatabaseReference chatRef = Information.getDatabase(Information.CHAT_RERALTION);
 
     // 리스트뷰 길게 클릭 시 팝업창 생성을 위한 객체
     final Context context = this;
@@ -82,13 +85,13 @@ public class ChatList extends AppCompatActivity {
                     }
                 }
                 // 폰 주인
-                ChatRelation cr = new ChatRelation();
-
-                cr.setUser1(hostName);
-                cr.setUser2(username);
-                cr.setChatName(Information.integrate(cr.getUser1(), cr.getUser2()));
-
-                databaseReference.child(cr.getChatName()).setValue(cr);
+//                ChatRelation cr = new ChatRelation();
+//
+//                cr.setUser1(hostName);
+//                cr.setUser2(username);
+//                cr.setChatName(Information.integrate(cr.getUser1(), cr.getUser2()));
+//
+//                chatRef.child(cr.getChatName()).setValue(cr);
             }
         });
 
@@ -127,9 +130,9 @@ public class ChatList extends AppCompatActivity {
                                         int id) {
 
                         // 채팅방 나가기
-                        if (items[id].equals("나가기")) {
-                            databaseReference.child(chatName).removeValue();
-                        }
+//                        if (items[id].equals("나가기")) {
+//                            databaseReference.child(chatName).removeValue();
+//                        }
 
 
                         // 프로그램을 종료한다
@@ -169,15 +172,21 @@ public class ChatList extends AppCompatActivity {
 
 
     public void showListView() {
-        databaseReference.addChildEventListener(new ChildEventListener() {  // message는 child의 이벤트를 수신합니다.
+        // 데이터베이스 읽기 #1. ValueEventListener
+
+        Log.e("==========", "여기서 시작");
+        chatRef.addChildEventListener(new ChildEventListener() {  // message는 child의 이벤트를 수신합니다.
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ChatRelation cr = dataSnapshot.getValue(ChatRelation.class);
-                if (hostName.equals(cr.getUser1()) || hostName.equals(cr.getUser2())) {
-                    String userName = hostName.equals(cr.getUser1()) ? cr.getUser2() : cr.getUser1();
-                    userList.add(userName);
-                    adapter.add(userName);
-                }
+
+                ChatRelation cd = dataSnapshot.getValue(ChatRelation.class);
+                Log.e("!!!==========", "여기서 시작");
+                Log.e("cd의 값은? ", cd.getUserId() + "\n");
+//                if (hostName.equals(cr.getUser1()) || hostName.equals(cr.getUser2())) {
+//                    String userName = hostName.equals(cr.getUser1()) ? cr.getUser2() : cr.getUser1();
+//                    userList.add(userName);
+//                    adapter.add(userName);
+//                }
 
             }
 
