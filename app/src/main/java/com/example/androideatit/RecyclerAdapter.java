@@ -51,6 +51,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
     }
 
+
+
     @Override
     public int getItemCount() {
         // RecyclerView의 총 개수 입니다.

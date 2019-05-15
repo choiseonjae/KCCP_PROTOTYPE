@@ -6,6 +6,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Information {
@@ -16,6 +17,8 @@ public class Information {
     public final static String CHAT_RERALTION = "chat_relation";
     public final static String CHAT_INFOMAION = "chat_contents";
     public final static String ROOM = "RoomInfo";
+
+    public static ArrayList<String> downloadUrl = new ArrayList<>();
 
     private static final StorageReference storageRef = FirebaseStorage.getInstance().getReferenceFromUrl("gs://kccp-a4bd9.appspot.com");
 
@@ -66,6 +69,12 @@ public class Information {
 
     public static DatabaseReference getDatabase(String ref) {
         return FirebaseDatabase.getInstance().getReference(ref);
+    }
+
+    // 전체 내용, 구별 될 내용, 구별자
+    public static String getOther(String all, String host, String distinction){
+        String[] user = all.split(distinction);
+        return host.equals(user[0]) ? user[1] : user[0];
     }
 
 

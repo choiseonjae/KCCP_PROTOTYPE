@@ -70,16 +70,6 @@ public class Chatting extends AppCompatActivity {
                 chatData.setReceiver(userId);
                 chatData.setMessage(write.getText().toString());
 
-                ChatRelation cr = new ChatRelation();
-                cr.setUserId(userId);
-                cr.setUserName("");
-                relationRef.child(hostId).push().setValue(cr);
-
-                ChatRelation cr2 = new ChatRelation();
-                cr2.setUserId(hostId);
-                cr2.setUserName("");
-                relationRef.child(userId).push().setValue(cr2);
-
                 // 현재 시간
                 chatData.setTime(Information.chatTimeStamp());
 

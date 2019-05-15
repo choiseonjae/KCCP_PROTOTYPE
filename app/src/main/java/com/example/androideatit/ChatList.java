@@ -30,7 +30,7 @@ import java.util.Map;
 
 public class ChatList extends AppCompatActivity {
 
-    private DatabaseReference chatRef = Information.getDatabase(Information.CHAT_RERALTION);
+    private DatabaseReference chatRef = Information.getDatabase(Information.CHAT_INFOMAION);
 
     // 리스트뷰 길게 클릭 시 팝업창 생성을 위한 객체
     final Context context = this;
@@ -84,14 +84,6 @@ public class ChatList extends AppCompatActivity {
                         return;
                     }
                 }
-                // 폰 주인
-//                ChatRelation cr = new ChatRelation();
-//
-//                cr.setUser1(hostName);
-//                cr.setUser2(username);
-//                cr.setChatName(Information.integrate(cr.getUser1(), cr.getUser2()));
-//
-//                chatRef.child(cr.getChatName()).setValue(cr);
             }
         });
 
@@ -113,7 +105,6 @@ public class ChatList extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
                 Toast.makeText(getBaseContext(), "long~~~~~~~~~", Toast.LENGTH_SHORT).show();
-
 
                 String user = userList.get(position), host = hostName;
                 final String chatName = Information.integrate(user, host);
@@ -162,8 +153,8 @@ public class ChatList extends AppCompatActivity {
                         getApplicationContext(), // 현재화면의 제어권자
                         Chatting.class); // 다음넘어갈 화면
 
-                intent.putExtra("user", userList.get(position));
-                intent.putExtra("host", hostName);
+                // 클릭한 user id를 넘긴다.
+                intent.putExtra("USER_ID", adapter.getItem(position).toString());
 
                 startActivity(intent);
             }
@@ -172,23 +163,14 @@ public class ChatList extends AppCompatActivity {
 
 
     public void showListView() {
-        // 데이터베이스 읽기 #1. ValueEventListener
 
-        Log.e("==========", "여기서 시작");
         chatRef.addChildEventListener(new ChildEventListener() {  // message는 child의 이벤트를 수신합니다.
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               // dataSnapshot.child("").exists() 존재확인
-
-                ChatRelation cd = dataSnapshot.getValue(ChatRelation.class);
-                Log.e("!!!==========", "여기서 시작");
-                Log.e("cd의 값은? ", cd.getUserId() + "\n");
-//                if (hostName.equals(cr.getUser1()) || hostName.equals(cr.getUser2())) {
-//                    String userName = hostName.equals(cr.getUser1()) ? cr.getUser2() : cr.getUser1();
-//                    userList.add(userName);
-//                    adapter.add(userName);
-//                }
-
+                // 상대방 채팅자
+                String opponentId = Information.getOther(dataSnapshot.getKey(), hostId, ", ");
+                userList.add(opponentId);
+                adapter.add(opponentId);
             }
 
             @Override

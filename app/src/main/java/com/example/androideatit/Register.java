@@ -18,8 +18,10 @@ import android.widget.Toast;
 
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.Model.BoardID;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,10 +36,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Register extends Activity {
 
+    ArrayList<String> downloadURLS = new ArrayList<>();
 
     private static final String TAG = "Register";
     ImageView image_preview;
@@ -87,10 +91,18 @@ public class Register extends Activity {
         button_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadFile();       //사진 데이터베이스에 집어넣기
+
+                for (int i = 0; i < 3; i++) {
+                    uploadFile(filePath.toString(), i);
+                    Log.e("에러 인덱스 확인 : ",i + "");
+                    Log.e("에러 확인 : ",downloadURLS.get(i));
+                    }
+                Log.e("에러 사이즈 확인 : ",downloadURLS.size() + "");
+
             }
         });
     }
+
 
     //결과 처리. 즉, 선택한 이미지 보여주기.
     @Override
@@ -212,4 +224,61 @@ public class Register extends Activity {
                     }
                 });
     }
+
+    //upload the file. 데이터베이스에 삽입 하는 부분임.
+    private void uploadFile(String filePath, int i) {
+
+
+        Log.d("파일패스", filePath);
+        //업로드할 파일이 있으면 수행
+        if (filePath != null) { //즉, 기존에 filePath부분을 다중업로드로 바꾸니까 이 부분도 items로 바꿔준다!!1 items에는 당연히 uri뭉치들이 있고...!!!
+
+            //업로드 진행 Dialog 보이기
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("업로드중...");
+            progressDialog.show();
+            //storage
+            final FirebaseStorage storage = FirebaseStorage.getInstance();
+
+            filename = Information.timeStamp() + i + ".png";
+            Log.d("태우의 filename", filename);
+            //storage 주소와 폴더 파일명을 지정해 준다.
+            final StorageReference storageRef = storage.getReferenceFromUrl("gs://kccp-a4bd9.appspot.com").child("TEST/" + filename);
+            Log.d("파일패스", filePath.toString());
+            storageRef.putFile(Uri.parse(filePath))
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageRef.getDownloadUrl()
+                                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Uri> task) {
+                                            if (task.isSuccessful()) {
+                                                Uri downloadUri = task.getResult();
+                                                //downloadURLS2[i] = downloadUri.toString();
+                                                Log.d("보드의 : ", downloadUri.toString());
+                                                downloadURLS.add(downloadUri.toString());
+                                                Log.d("태우짱", downloadURLS.toString());
+                                                //board.setDownloadURLS(downloadURLS);
+
+                                            }
+                                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                                            Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+
+                    });
+        }
+
+    }
+
+
 }
