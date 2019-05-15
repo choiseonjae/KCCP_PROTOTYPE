@@ -36,13 +36,12 @@ public class ChatList extends AppCompatActivity {
     final Context context = this;
 
     // 사용자 이름름
-    String hostName = Information.getUserName(), hostId = Information.getUserId();
+    String myName = Information.getUserName(), myID = Information.getMyId();
 
 
     ArrayAdapter adapter;
     ArrayList<String> userList = new ArrayList<>();
     AlertDialog.Builder alert;
-    TextView hostNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +105,8 @@ public class ChatList extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int position, long arg3) {
                 Toast.makeText(getBaseContext(), "long~~~~~~~~~", Toast.LENGTH_SHORT).show();
 
-                String user = userList.get(position), host = hostName;
-                final String chatName = Information.integrate(user, host);
+                String user = userList.get(position);
+                final String chatName = Information.integrate(user, myName);
 
                 final CharSequence[] items = {"채팅방 이름 설정", "나가기"};
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -167,10 +166,13 @@ public class ChatList extends AppCompatActivity {
         chatRef.addChildEventListener(new ChildEventListener() {  // message는 child의 이벤트를 수신합니다.
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // 상대방 채팅자
-                String opponentId = Information.getOther(dataSnapshot.getKey(), hostId, ", ");
-                userList.add(opponentId);
-                adapter.add(opponentId);
+                // 상대방 채팅자 id 구함.
+                String opponentId = Information.getOther(dataSnapshot.getKey(), myID, ", ");
+                // null 이면 나랑의 채팅은 아닌 것
+                if(opponentId != null) {
+                    userList.add(opponentId);
+                    adapter.add(opponentId);
+                }
             }
 
             @Override

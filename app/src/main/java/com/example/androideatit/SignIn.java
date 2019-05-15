@@ -62,8 +62,8 @@ public class SignIn extends AppCompatActivity {
                                 String name = user.getName();
 
                                 // ID, 이름 저장
+                                Information.setMyId(logId.getText().toString());
                                 Information.setUserName(name);
-                                Information.setUserId(logId.getText().toString());
 
                                 if(edtCheck.isChecked()){
                                     //phone, password 일치시, 자동 로그인에 필요한 정보
@@ -78,7 +78,6 @@ public class SignIn extends AppCompatActivity {
                                 Toast.makeText(SignIn.this, name+"님 환영합니다!", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent = new Intent(SignIn.this, Home.class);
 
-                                Log.e("이름 확인 합니다.",Information.getUserId());
                                 startActivity(homeIntent);
                                 finish();
                             }

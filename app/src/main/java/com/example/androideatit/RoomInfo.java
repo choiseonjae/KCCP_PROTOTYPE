@@ -44,10 +44,10 @@ public class RoomInfo extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        Log.e("아이디 : ", Information.getUserId());
+        Log.e("아이디 : ", Information.getMyId());
         Log.e("글 아이디 : ", board.getUserId());
 
-        if (!board.getUserId().equals(Information.getUserId())) {
+        if (!board.getUserId().equals(Information.getMyId())) {
             setContentView(R.layout.activity_roominfo);
 
             // 폰 번호 알아오기

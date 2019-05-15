@@ -3,6 +3,7 @@ package com.example.androideatit.ViewHolder;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +26,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public static final int MSG_TYPE_LEFT = 0;
     public static final int MSG_TYPE_RIGHT = 1;
     private Context mContext;
-    private List<ChatData> mChat;
-    private String imageurl;
+    private List<ChatData> chatList;
+    private final String myID = Information.getMyId();
 
     FirebaseUser firebaseUser;
 
     public MessageAdapter(Context mContext, List<ChatData> mChat) {
-        this.mChat = mChat;
+        this.chatList = mChat;
         this.mContext = mContext;
     }
 
@@ -49,13 +50,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        ChatData chat = mChat.get(i);
+        ChatData chat = chatList.get(i);
         viewHolder.show_message.setText(chat.getMessage());
     }
 
     @Override
     public int getItemCount() {
-        return mChat.size();
+        return chatList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,18 +67,21 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             super(itemView);
 
             show_message = itemView.findViewById(R.id.show_message);
-            profile_image = (CircleImageView)itemView.findViewById(R.id.profile_image);
+            profile_image = (CircleImageView) itemView.findViewById(R.id.profile_image);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (mChat.get(position).getSender().equals(Information.getUserName())) {
+        // message sender
+        String sender = chatList.get(position).getSender();
+        Log.e("sender : ", sender);
+        Log.e("my id : ", myID);
+        Log.e("sender == id : ", myID.equals(chatList.get(position).getSender()) + "");
+        if (sender.equals(myID))
             return MSG_TYPE_RIGHT;
-        } else {
-            return MSG_TYPE_LEFT;
-        }
+        return MSG_TYPE_LEFT;
+
 
     }
 }

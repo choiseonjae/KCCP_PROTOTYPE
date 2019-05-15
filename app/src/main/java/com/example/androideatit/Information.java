@@ -11,6 +11,10 @@ import java.util.Date;
 
 public class Information {
 
+    public static void setMyId(String myId) {
+        MY_ID = myId;
+    }
+
     private Information() {
     }
 
@@ -24,7 +28,7 @@ public class Information {
 
     private static String USER_NAME;
 
-    private static String USER_ID;
+    private static String MY_ID;
 
     private static final int[] townImages = {R.id.dobong_image, R.id.nowon_image, R.id.dongdaemoon_image, R.id.enpyeong_image,
             R.id.joong_image, R.id.jongro_image, R.id.seodaemoon_image, R.id.seongbook_image,
@@ -55,12 +59,8 @@ public class Information {
         USER_NAME = userName;
     }
 
-    public static String getUserId() {
-        return USER_ID;
-    }
-
-    public static void setUserId(String userId) {
-        USER_ID = userId;
+    public static String getMyId() {
+        return MY_ID;
     }
 
     public static DatabaseReference getDatabase() {
@@ -71,10 +71,12 @@ public class Information {
         return FirebaseDatabase.getInstance().getReference(ref);
     }
 
-    // 전체 내용, 구별 될 내용, 구별자
+    // 전체 내용, 구별 될 내용, 구별자 / null 이면 해당 채팅방 아님
     public static String getOther(String all, String host, String distinction){
         String[] user = all.split(distinction);
-        return host.equals(user[0]) ? user[1] : user[0];
+        if(host.equals(user[0]) || host.equals(user[1]))
+            return host.equals(user[0]) ? user[1] : user[0];
+        return null;
     }
 
 

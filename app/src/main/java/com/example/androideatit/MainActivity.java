@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
                     // id 이름 저장
                     Information.setUserName(user.getName());
-                    Information.setUserId(userID);
+                    Information.setMyId(userID);
 
                     Toast.makeText(MainActivity.this, user.getName()+"님 환영합니다!", Toast.LENGTH_SHORT).show();
                     startActivity(homeIntent);
