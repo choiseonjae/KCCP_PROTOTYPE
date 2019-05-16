@@ -9,10 +9,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.androideatit.Model.Board;
+import com.example.androideatit.ViewHolder.RoomAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,10 +23,8 @@ public class SmallMap extends AppCompatActivity {
     private TextView townTextView;
     private String townName;
 
-    RecyclerAdapter adapter;
-    Button button_search;
-    Button button_register;
-    private DatabaseReference database = Information.getDatabase("RoomInfo");
+    RoomAdapter adapter;
+    final private DatabaseReference database = Infomation.getDatabase(Infomation.ROOM);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +63,7 @@ public class SmallMap extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new RecyclerAdapter(this);
+        adapter = new RoomAdapter(this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -74,7 +72,7 @@ public class SmallMap extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Board board = dataSnapshot.getValue(Board.class);
-                adapter.add(board);
+                adapter.add(board, dataSnapshot.getKey());
                 adapter.notifyDataSetChanged();
             }
 
@@ -86,11 +84,8 @@ public class SmallMap extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Board board = dataSnapshot.getValue(Board.class);
-                Log.e("삭제 : ", board.getTitle());
-                adapter.remove(board.getBoardId());
-                // listview 갱신.
-                adapter.notifyDataSetChanged();
+                adapter.remove(dataSnapshot.getKey());
+                adapter.notifyDataSetChanged();     // listview 갱신
             }
 
             @Override

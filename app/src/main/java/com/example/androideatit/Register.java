@@ -22,7 +22,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,7 +36,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Register extends Activity {
 
@@ -54,7 +52,7 @@ public class Register extends Activity {
     private Uri filePath;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
-    private DatabaseReference database = Information.getDatabase("RoomInfo");
+    private DatabaseReference database = Infomation.getDatabase(Infomation.ROOM);
     String townName;
     int boardID;
 
@@ -92,12 +90,7 @@ public class Register extends Activity {
             @Override
             public void onClick(View view) {
 
-                for (int i = 0; i < 3; i++) {
-                    uploadFile(filePath.toString(), i);
-                    Log.e("에러 인덱스 확인 : ",i + "");
-                    Log.e("에러 확인 : ",downloadURLS.get(i));
-                    }
-                Log.e("에러 사이즈 확인 : ",downloadURLS.size() + "");
+                uploadFile();       //사진 데이터베이스에 집어넣기
 
             }
         });
@@ -128,7 +121,7 @@ public class Register extends Activity {
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
 
-            final DatabaseReference BOARD_ID = Information.getDatabase("BoardID");
+            final DatabaseReference BOARD_ID = Infomation.getDatabase("BoardID");
 
             // 게시글 ID 받아오기
             BOARD_ID.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -152,10 +145,10 @@ public class Register extends Activity {
             progressDialog.show();
 
             //Unique한 파일명 / 사용자 이름, 타입
-            filename = Information.timeStamp(Information.getUserName(),".png");
+            filename = Infomation.timeStamp(Infomation.getUserName(), ".png");
 
             // room 사진 storage 참조
-            final StorageReference roomStorage = Information.getStorageRef("room/" + filename);
+            final StorageReference roomStorage = Infomation.getStorageRef("room/" + filename);
 
             //storage 주소와 폴더 파일명을 지정해 준다.
             roomStorage.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -169,13 +162,13 @@ public class Register extends Activity {
                             // 파일 올리기에 성공 하면 DB에도 해당 파일의 메타 데이터를 저장
                             Board board = new Board();
 
-                            board.setUserId(Information.getMyId());
+                            board.setUserId(Infomation.getMyId());
                             board.setBoardId(boardID);
                             board.setTitle(title.getText().toString());
-                            board.setDate(Information.timeStamp());
+                            board.setDate(Infomation.timeStamp());
                             board.setContent(content.getText().toString());
                             board.setFilename(filename);
-                            board.setUserName(Information.getUserName());
+                            board.setUserName(Infomation.getUserName());
                             board.setUri(uri.toString());
                             board.setLocation(townName);
 
@@ -240,7 +233,7 @@ public class Register extends Activity {
             //storage
             final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-            filename = Information.timeStamp() + i + ".png";
+            filename = Infomation.timeStamp() + i + ".png";
             Log.d("태우의 filename", filename);
             //storage 주소와 폴더 파일명을 지정해 준다.
             final StorageReference storageRef = storage.getReferenceFromUrl("gs://kccp-a4bd9.appspot.com").child("TEST/" + filename);

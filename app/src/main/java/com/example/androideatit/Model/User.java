@@ -1,5 +1,7 @@
 package com.example.androideatit.Model;
 
+import java.util.ArrayList;
+
 public class User {
     private String Phone;
     private String Name;
@@ -38,4 +40,5 @@ public class User {
     public String getBirthDate() { return BirthDate; }
 
     public void setBirthDate(String birthDate) { BirthDate = birthDate; }
+
 }

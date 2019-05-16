@@ -10,12 +10,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
         //자동 로그인 되어있으면 바로 홈으로 아니면, 회원가입/로그인 뜨는 창으로 이동
         if(isLogined()){
 
-            Information.getDatabase("User").addValueEventListener(new ValueEventListener() {
+            Infomation.getDatabase("User").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.child(userID).getValue(User.class);
                     Intent homeIntent = new Intent(MainActivity.this, Home.class);
 
                     // id 이름 저장
-                    Information.setUserName(user.getName());
-                    Information.setMyId(userID);
+                    Infomation.setUserName(user.getName());
+                    Infomation.setMyId(userID);
 
                     Toast.makeText(MainActivity.this, user.getName()+"님 환영합니다!", Toast.LENGTH_SHORT).show();
                     startActivity(homeIntent);

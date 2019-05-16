@@ -6,37 +6,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androideatit.Model.ChatData;
-import com.example.androideatit.Model.ChatRelation;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ChatList extends AppCompatActivity {
 
-    private DatabaseReference chatRef = Information.getDatabase(Information.CHAT_INFOMAION);
+    private DatabaseReference chatRef = Infomation.getDatabase(Infomation.CHAT_INFOMAION);
 
     // 리스트뷰 길게 클릭 시 팝업창 생성을 위한 객체
     final Context context = this;
 
     // 사용자 이름름
-    String myName = Information.getUserName(), myID = Information.getMyId();
+    String myName = Infomation.getUserName(), myID = Infomation.getMyId();
 
 
     ArrayAdapter adapter;
@@ -106,7 +98,7 @@ public class ChatList extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "long~~~~~~~~~", Toast.LENGTH_SHORT).show();
 
                 String user = userList.get(position);
-                final String chatName = Information.integrate(user, myName);
+                final String chatName = Infomation.integrate(user, myName);
 
                 final CharSequence[] items = {"채팅방 이름 설정", "나가기"};
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -167,9 +159,9 @@ public class ChatList extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 // 상대방 채팅자 id 구함.
-                String opponentId = Information.getOther(dataSnapshot.getKey(), myID, ", ");
+                String opponentId = Infomation.getOther(dataSnapshot.getKey(), myID, ", ");
                 // null 이면 나랑의 채팅은 아닌 것
-                if(opponentId != null) {
+                if (opponentId != null) {
                     userList.add(opponentId);
                     adapter.add(opponentId);
                 }
@@ -194,8 +186,4 @@ public class ChatList extends AppCompatActivity {
         });
     }
 
-    public void plusChat(View v) {
-        alertListen("채팅방 생성", "채팅하고자 하는 상대방 이름을 적어주세요");
-        alert.show();
-    }
 }

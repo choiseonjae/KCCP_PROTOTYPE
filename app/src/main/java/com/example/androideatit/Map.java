@@ -1,19 +1,15 @@
 package com.example.androideatit;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-
-import com.example.androideatit.R;
 
 public class Map extends AppCompatActivity {
 
-    final int[] townImages = Information.getTownImages();
+    final int[] townImages = Infomation.getTownImages();
 
-    final String[] townNames = Information.getTownNames();
+    final String[] townNames = Infomation.getTownNames();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

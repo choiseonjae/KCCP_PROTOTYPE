@@ -13,7 +13,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -62,8 +61,8 @@ public class SignIn extends AppCompatActivity {
                                 String name = user.getName();
 
                                 // ID, 이름 저장
-                                Information.setMyId(logId.getText().toString());
-                                Information.setUserName(name);
+                                Infomation.setMyId(logId.getText().toString());
+                                Infomation.setUserName(name);
 
                                 if(edtCheck.isChecked()){
                                     //phone, password 일치시, 자동 로그인에 필요한 정보

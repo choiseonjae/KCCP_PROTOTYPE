@@ -30,11 +30,11 @@ public class Chatting extends AppCompatActivity {
 
         // 상대바
         final String opponentID = getIntent().getExtras().getString("USER_ID");
-        final String myID = Information.getMyId();
+        final String myID = Infomation.getMyId();
 
-        final String chatName = Information.integrate(myID, opponentID);
+        final String chatName = Infomation.integrate(myID, opponentID);
 
-        final DatabaseReference contentsRef = Information.getDatabase(Information.CHAT_INFOMAION).child(chatName);
+        final DatabaseReference contentsRef = Infomation.getDatabase(Infomation.CHAT_INFOMAION).child(chatName);
 
         recyclerView = findViewById(R.id.listView2);
         recyclerView.setHasFixedSize(true);
@@ -53,7 +53,7 @@ public class Chatting extends AppCompatActivity {
                 chatData.setSender(myID); // 내 아이디
                 chatData.setReceiver(opponentID); // 상대방 아이디
                 chatData.setMessage(write.getText().toString()); // 메세지
-                chatData.setTime(Information.chatTimeStamp()); // 전송 시간
+                chatData.setTime(Infomation.chatTimeStamp()); // 전송 시간
 
                 contentsRef.push().setValue(chatData); // DB에 저장
                 write.setText(""); // 전송 후 초기화

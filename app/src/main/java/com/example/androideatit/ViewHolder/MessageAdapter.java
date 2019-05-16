@@ -7,15 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.androideatit.Information;
+import com.example.androideatit.Infomation;
 import com.example.androideatit.Model.ChatData;
-import com.example.androideatit.Model.ChatData;
-import com.example.androideatit.Model.User;
 import com.example.androideatit.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
@@ -27,7 +23,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public static final int MSG_TYPE_RIGHT = 1;
     private Context mContext;
     private List<ChatData> chatList;
-    private final String myID = Information.getMyId();
+    private final String myID = Infomation.getMyId();
 
     FirebaseUser firebaseUser;
 
