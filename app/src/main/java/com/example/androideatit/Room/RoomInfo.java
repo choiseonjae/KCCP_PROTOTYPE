@@ -1,33 +1,27 @@
-package com.example.androideatit;
+package com.example.androideatit.Room;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.icu.text.IDNA;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androideatit.Chat.Chatting;
+import com.example.androideatit.Common.Infomation;
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.Model.Favorite;
-import com.example.androideatit.Model.User;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.androideatit.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 
@@ -124,14 +118,14 @@ public class RoomInfo extends AppCompatActivity {
         final ImageView star = findViewById(R.id.star);
 
         // 즐겨 찾기 DB 참조
-        final DatabaseReference favoriteRef = Infomation.getDatabase("Favorite").child(myID).child(boardID);
+        final DatabaseReference scrapRef = Infomation.getDatabase("Scrap").child(myID).child(boardID);
 
         // 별 이미지
         final Drawable ON = getResources().getDrawable(R.drawable.star_on, getApplicationContext().getTheme());
         final Drawable OFF = getResources().getDrawable(R.drawable.star_off, getApplicationContext().getTheme());
 
         // 방 입장 시 원래 상태로 초기화
-        favoriteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        scrapRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // 보드 아이디가 존재 시
@@ -149,10 +143,10 @@ public class RoomInfo extends AppCompatActivity {
 
 
         // 즐겨 찾기 클릭 시
-        findViewById(R.id.favorite).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.scrap).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                favoriteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                scrapRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -161,7 +155,7 @@ public class RoomInfo extends AppCompatActivity {
                             dataSnapshot.getRef().removeValue();
                         } else {     // 즐겨 찾기
                             star.setImageDrawable(ON);
-                            favoriteRef.setValue(new Favorite());
+                            scrapRef.setValue(new Favorite());
                         }
 
                     }

@@ -1,4 +1,4 @@
-package com.example.androideatit;
+package com.example.androideatit.Room;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,8 +16,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.androideatit.Common.Infomation;
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.Model.BoardID;
+import com.example.androideatit.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

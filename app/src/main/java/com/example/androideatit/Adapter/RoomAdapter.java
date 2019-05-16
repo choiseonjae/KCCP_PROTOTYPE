@@ -1,4 +1,4 @@
-package com.example.androideatit.ViewHolder;
+package com.example.androideatit.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.androideatit.Infomation;
+import com.example.androideatit.Common.Infomation;
 import com.example.androideatit.Model.Board;
-import com.example.androideatit.MyRoomInfo;
+import com.example.androideatit.Room.MyRoomInfo;
 import com.example.androideatit.R;
-import com.example.androideatit.RoomInfo;
+import com.example.androideatit.Room.RoomInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 

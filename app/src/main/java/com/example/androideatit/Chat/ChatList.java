@@ -1,4 +1,4 @@
-package com.example.androideatit;
+package com.example.androideatit.Chat;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

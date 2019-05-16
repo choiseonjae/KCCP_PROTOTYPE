@@ -1,4 +1,4 @@
-package com.example.androideatit.ViewHolder;
+package com.example.androideatit.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.androideatit.Infomation;
+import com.example.androideatit.Common.Infomation;
 import com.example.androideatit.Model.ChatData;
 import com.example.androideatit.R;
 import com.google.firebase.auth.FirebaseUser;

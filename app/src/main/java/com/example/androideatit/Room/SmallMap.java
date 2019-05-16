@@ -1,4 +1,4 @@
-package com.example.androideatit;
+package com.example.androideatit.Room;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.androideatit.Common.Infomation;
 import com.example.androideatit.Model.Board;
-import com.example.androideatit.ViewHolder.RoomAdapter;
+import com.example.androideatit.R;
+import com.example.androideatit.Adapter.RoomAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

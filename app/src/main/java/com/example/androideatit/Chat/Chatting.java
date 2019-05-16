@@ -1,4 +1,4 @@
-package com.example.androideatit;
+package com.example.androideatit.Chat;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.androideatit.Common.Infomation;
 import com.example.androideatit.Model.ChatData;
-import com.example.androideatit.ViewHolder.MessageAdapter;
+import com.example.androideatit.R;
+import com.example.androideatit.Adapter.MessageAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

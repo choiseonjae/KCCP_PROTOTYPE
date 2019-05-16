@@ -1,9 +1,13 @@
-package com.example.androideatit;
+package com.example.androideatit.Room;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.ObjectClickImageView;
+import com.example.androideatit.R;
 
 public class Map extends AppCompatActivity {
 

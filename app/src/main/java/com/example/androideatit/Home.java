@@ -21,7 +21,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androideatit.Chat.ChatList;
+import com.example.androideatit.Common.Infomation;
 import com.example.androideatit.Model.Category;
+import com.example.androideatit.Room.Map;
 import com.example.androideatit.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -120,7 +123,7 @@ public class Home extends AppCompatActivity
         if (id == R.id.map)
             startActivity(new Intent(this, Map.class));
         if (id == R.id.nav_orders) {
-
+            startActivity(new Intent(getApplicationContext(), MyScrap.class));
         }
         if (id == R.id.chat) {
             Toast.makeText(this, "chat 누름.", Toast.LENGTH_SHORT).show();

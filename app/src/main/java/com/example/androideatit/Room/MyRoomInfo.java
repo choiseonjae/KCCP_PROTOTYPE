@@ -1,4 +1,4 @@
-package com.example.androideatit;
+package com.example.androideatit.Room;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,14 +12,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androideatit.Common.Infomation;
 import com.example.androideatit.Model.Board;
+import com.example.androideatit.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
