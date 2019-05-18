@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.androideatit.Adapter.RoomAdapter;
-import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Board;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +19,7 @@ public class MyScrap extends AppCompatActivity {
 
     private RoomAdapter adapter;
 
-    private final String myID = Infomation.getMyId();
+    private final String myID = Common.getMyId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,8 @@ public class MyScrap extends AppCompatActivity {
     }
 
     private void getData() {
-        final DatabaseReference scrapRef = Infomation.getDatabase(Infomation.SCRAP).child(myID);
-        final DatabaseReference roomRef = Infomation.getDatabase(Infomation.ROOM);
+        final DatabaseReference scrapRef = Common.getDatabase(Common.SCRAP).child(myID);
+        final DatabaseReference roomRef = Common.getDatabase(Common.ROOM);
 
         scrapRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

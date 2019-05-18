@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.Model.BoardID;
 import com.example.androideatit.R;
@@ -54,7 +54,7 @@ public class Register extends Activity {
     private Uri filePath;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
-    private DatabaseReference database = Infomation.getDatabase(Infomation.ROOM);
+    private DatabaseReference database = Common.getDatabase(Common.ROOM);
     String townName;
     int boardID;
 
@@ -123,7 +123,7 @@ public class Register extends Activity {
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
 
-            final DatabaseReference BOARD_ID = Infomation.getDatabase("BoardID");
+            final DatabaseReference BOARD_ID = Common.getDatabase("BoardID");
 
             // 게시글 ID 받아오기
             BOARD_ID.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -147,10 +147,10 @@ public class Register extends Activity {
             progressDialog.show();
 
             //Unique한 파일명 / 사용자 이름, 타입
-            filename = Infomation.timeStamp(Infomation.getUserName(), ".png");
+            filename = Common.timeStamp(Common.getUserName(), ".png");
 
             // room 사진 storage 참조
-            final StorageReference roomStorage = Infomation.getStorageRef("room/" + filename);
+            final StorageReference roomStorage = Common.getStorageRef("room/" + filename);
 
             //storage 주소와 폴더 파일명을 지정해 준다.
             roomStorage.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -164,13 +164,13 @@ public class Register extends Activity {
                             // 파일 올리기에 성공 하면 DB에도 해당 파일의 메타 데이터를 저장
                             Board board = new Board();
 
-                            board.setUserId(Infomation.getMyId());
+                            board.setUserId(Common.getMyId());
                             board.setBoardId(boardID);
                             board.setTitle(title.getText().toString());
-                            board.setDate(Infomation.timeStamp());
+                            board.setDate(Common.timeStamp());
                             board.setContent(content.getText().toString());
                             board.setFilename(filename);
-                            board.setUserName(Infomation.getUserName());
+                            board.setUserName(Common.getUserName());
                             board.setUri(uri.toString());
                             board.setLocation(townName);
 
@@ -235,7 +235,7 @@ public class Register extends Activity {
             //storage
             final FirebaseStorage storage = FirebaseStorage.getInstance();
 
-            filename = Infomation.timeStamp() + i + ".png";
+            filename = Common.timeStamp() + i + ".png";
             Log.d("태우의 filename", filename);
             //storage 주소와 폴더 파일명을 지정해 준다.
             final StorageReference storageRef = storage.getReferenceFromUrl("gs://kccp-a4bd9.appspot.com").child("TEST/" + filename);

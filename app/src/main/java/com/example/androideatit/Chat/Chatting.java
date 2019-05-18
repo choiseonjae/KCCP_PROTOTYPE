@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.ChatData;
 import com.example.androideatit.R;
 import com.example.androideatit.Adapter.MessageAdapter;
@@ -32,11 +32,11 @@ public class Chatting extends AppCompatActivity {
 
         // 상대바
         final String opponentID = getIntent().getExtras().getString("USER_ID");
-        final String myID = Infomation.getMyId();
+        final String myID = Common.getMyId();
 
-        final String chatName = Infomation.integrate(myID, opponentID);
+        final String chatName = Common.integrate(myID, opponentID);
 
-        final DatabaseReference contentsRef = Infomation.getDatabase(Infomation.CHAT_INFOMAION).child(chatName);
+        final DatabaseReference contentsRef = Common.getDatabase(Common.CHAT_INFOMAION).child(chatName);
 
         recyclerView = findViewById(R.id.listView2);
         recyclerView.setHasFixedSize(true);
@@ -55,7 +55,7 @@ public class Chatting extends AppCompatActivity {
                 chatData.setSender(myID); // 내 아이디
                 chatData.setReceiver(opponentID); // 상대방 아이디
                 chatData.setMessage(write.getText().toString()); // 메세지
-                chatData.setTime(Infomation.chatTimeStamp()); // 전송 시간
+                chatData.setTime(Common.chatTimeStamp()); // 전송 시간
 
                 contentsRef.push().setValue(chatData); // DB에 저장
                 write.setText(""); // 전송 후 초기화

@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,7 +25,7 @@ public class MyRoomInfo extends AppCompatActivity {
 
     private Board board;
 
-    final String myID = Infomation.getMyId();
+    final String myID = Common.getMyId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class MyRoomInfo extends AppCompatActivity {
                 alert.setPositiveButton("네", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Create a reference to the file to delete
-                        StorageReference desertRef = Infomation.getStorageRef().child("room/" + board.getFilename());
+                        StorageReference desertRef = Common.getStorageRef().child("room/" + board.getFilename());
                         ;
                         // Delete the file
                         desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -70,7 +70,7 @@ public class MyRoomInfo extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
 
                                 // DB 삭제
-                                DatabaseReference ref = Infomation.getDatabase(Infomation.ROOM).child(board.getLocation()).child(boardID);
+                                DatabaseReference ref = Common.getDatabase(Common.ROOM).child(board.getLocation()).child(boardID);
 
                                 ref.removeValue();
 

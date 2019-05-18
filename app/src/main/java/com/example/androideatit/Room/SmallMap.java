@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.R;
 import com.example.androideatit.Adapter.RoomAdapter;
@@ -26,7 +26,7 @@ public class SmallMap extends AppCompatActivity {
     private String townName;
 
     RoomAdapter adapter;
-    final private DatabaseReference database = Infomation.getDatabase(Infomation.ROOM);
+    final private DatabaseReference database = Common.getDatabase(Common.ROOM);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

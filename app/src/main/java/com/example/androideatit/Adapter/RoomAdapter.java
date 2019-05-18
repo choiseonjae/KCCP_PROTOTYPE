@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.Room.MyRoomInfo;
 import com.example.androideatit.R;
@@ -92,7 +92,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ItemViewHolder
 
                     Intent intent = null;
                     // 글 게시자가 나이면
-                    if (board.getUserId().equals(Infomation.getMyId()))
+                    if (board.getUserId().equals(Common.getMyId()))
                         intent = new Intent(context, MyRoomInfo.class);
                     else // 글 게시자 != 나
                         intent = new Intent(context, RoomInfo.class);

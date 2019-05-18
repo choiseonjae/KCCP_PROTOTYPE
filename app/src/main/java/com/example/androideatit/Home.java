@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androideatit.Chat.ChatList;
-import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Category;
 import com.example.androideatit.Room.Map;
 import com.example.androideatit.ViewHolder.MenuViewHolder;
@@ -65,7 +65,7 @@ public class Home extends AppCompatActivity
         });
 
         nameView = findViewById(R.id.nameView);
-        nameView.setText(Infomation.getUserName()+ " 님 환영합니다!");
+        nameView.setText(Common.getUserName()+ " 님 환영합니다!");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -79,7 +79,7 @@ public class Home extends AppCompatActivity
         //Set Name for user
         View headerView = navigationView.getHeaderView(0);
         txtFullName = headerView.findViewById(R.id.txtFullName);
-        txtFullName.setText(Infomation.getUserName());
+        txtFullName.setText(Common.getUserName());
 
         //Load menu
         recycler_menu = findViewById(R.id.recycler_menu);
@@ -122,14 +122,12 @@ public class Home extends AppCompatActivity
 
         if (id == R.id.map)
             startActivity(new Intent(this, Map.class));
-        if (id == R.id.nav_orders) {
+        if (id == R.id.scrap)
             startActivity(new Intent(getApplicationContext(), MyScrap.class));
-        }
-        if (id == R.id.chat) {
-            Toast.makeText(this, "chat 누름.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(Home.this, ChatList.class);
-            startActivity(intent);
-        }
+        if (id == R.id.chat)
+            startActivity(new Intent(Home.this, ChatList.class));
+        if(id == R.id.setting)
+            startActivity(new Intent(Home.this, Setting.class));
         if (id == R.id.nav_log_out) {
             AlertDialog.Builder alertdialog = new AlertDialog.Builder(Home.this);
             alertdialog.setTitle("로그아웃");

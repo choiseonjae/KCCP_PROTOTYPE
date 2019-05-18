@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androideatit.Chat.Chatting;
-import com.example.androideatit.Common.Infomation;
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Board;
 import com.example.androideatit.Model.Favorite;
 import com.example.androideatit.R;
@@ -29,7 +29,7 @@ public class RoomInfo extends AppCompatActivity {
 
     private Board board;
 
-    final String myID = Infomation.getMyId();
+    final String myID = Common.getMyId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +118,7 @@ public class RoomInfo extends AppCompatActivity {
         final ImageView star = findViewById(R.id.star);
 
         // 즐겨 찾기 DB 참조
-        final DatabaseReference scrapRef = Infomation.getDatabase("Scrap").child(myID).child(boardID);
+        final DatabaseReference scrapRef = Common.getDatabase("Scrap").child(myID).child(boardID);
 
         // 별 이미지
         final Drawable ON = getResources().getDrawable(R.drawable.star_on, getApplicationContext().getTheme());

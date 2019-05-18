@@ -24,7 +24,7 @@
         <activity android:name=".Chat.ChatList" />
         <activity android:name=".PhoneAuthActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name=".FoodList" />
+        <activity android:name=".Setting" />
         <activity android:name=".Room.Register" />
         <activity android:name=".Room.RoomInfo" />
         <activity

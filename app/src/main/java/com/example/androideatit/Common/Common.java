@@ -10,13 +10,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Infomation {
+public class Common {
 
     public static void setMyId(String myId) {
         MY_ID = myId;
     }
 
-    private Infomation() {
+    private Common() {
     }
 
     public final static String CHAT_INFOMAION = "chat_contents";
