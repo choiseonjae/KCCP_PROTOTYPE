@@ -26,6 +26,7 @@ import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Category;
 import com.example.androideatit.Room.Map;
 import com.example.androideatit.ViewHolder.MenuViewHolder;
+import com.example.androideatit.WantRoom.ListActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -126,6 +127,8 @@ public class Home extends AppCompatActivity
             startActivity(new Intent(getApplicationContext(), MyScrap.class));
         if (id == R.id.chat)
             startActivity(new Intent(Home.this, ChatList.class));
+        if (id == R.id.getroom)
+            startActivity(new Intent(Home.this, ListActivity.class));
         if(id == R.id.setting)
             startActivity(new Intent(Home.this, Setting.class));
         if (id == R.id.nav_log_out) {
