@@ -56,7 +56,6 @@ public class Register extends Activity {
     FirebaseUser user = mAuth.getCurrentUser();
     private DatabaseReference database = Common.getDatabase(Common.ROOM);
     String townName;
-    int boardID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,15 +90,13 @@ public class Register extends Activity {
         button_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                uploadFile();       //사진 데이터베이스에 집어넣기
-
+                uploadFile();       // 사진 과 사진 정보를 DB에 업로드
             }
         });
     }
 
 
-    //결과 처리. 즉, 선택한 이미지 보여주기.
+    //등록 이후 결과 처리. 즉, 선택한 이미지 보여주기.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -117,29 +114,11 @@ public class Register extends Activity {
         }
     }
 
-    //upload the file. 데이터베이스에 삽입 하는 부분임.
+    // 사진, 사진에 대한 메타 데이터를 각각 storage 와 DB에 저장
     private void uploadFile() {
 
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
-
-            final DatabaseReference BOARD_ID = Common.getDatabase("BoardID");
-
-            // 게시글 ID 받아오기
-            BOARD_ID.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    BoardID id = dataSnapshot.getValue(BoardID.class);
-                    boardID = id.boardId;
-                    BOARD_ID.setValue(new BoardID(boardID + 1));
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-
 
             //업로드 진행 Dialog 보이기
             final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -161,11 +140,15 @@ public class Register extends Activity {
                         @Override // 파일 uri 가져오는 거 성공 시
                         public void onSuccess(Uri uri) {
 
+                            final DatabaseReference roomRef = Common.getDatabase(Common.ROOM).child(townName);
+
+                            String boardID = roomRef.push().getKey();
+
                             // 파일 올리기에 성공 하면 DB에도 해당 파일의 메타 데이터를 저장
                             Board board = new Board();
 
                             board.setUserId(Common.getMyId());
-                            board.setBoardId(boardID);
+                            board.setBoardID(boardID);
                             board.setTitle(title.getText().toString());
                             board.setDate(Common.timeStamp());
                             board.setContent(content.getText().toString());
@@ -220,60 +203,7 @@ public class Register extends Activity {
                 });
     }
 
-    //upload the file. 데이터베이스에 삽입 하는 부분임.
-    private void uploadFile(String filePath, int i) {
 
-
-        Log.d("파일패스", filePath);
-        //업로드할 파일이 있으면 수행
-        if (filePath != null) { //즉, 기존에 filePath부분을 다중업로드로 바꾸니까 이 부분도 items로 바꿔준다!!1 items에는 당연히 uri뭉치들이 있고...!!!
-
-            //업로드 진행 Dialog 보이기
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("업로드중...");
-            progressDialog.show();
-            //storage
-            final FirebaseStorage storage = FirebaseStorage.getInstance();
-
-            filename = Common.timeStamp() + i + ".png";
-            Log.d("태우의 filename", filename);
-            //storage 주소와 폴더 파일명을 지정해 준다.
-            final StorageReference storageRef = storage.getReferenceFromUrl("gs://kccp-a4bd9.appspot.com").child("TEST/" + filename);
-            Log.d("파일패스", filePath.toString());
-            storageRef.putFile(Uri.parse(filePath))
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            storageRef.getDownloadUrl()
-                                    .addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Uri> task) {
-                                            if (task.isSuccessful()) {
-                                                Uri downloadUri = task.getResult();
-                                                //downloadURLS2[i] = downloadUri.toString();
-                                                Log.d("보드의 : ", downloadUri.toString());
-                                                downloadURLS.add(downloadUri.toString());
-                                                Log.d("태우짱", downloadURLS.toString());
-                                                //board.setDownloadURLS(downloadURLS);
-
-                                            }
-                                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                                            Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(getApplicationContext(), "업로드 실패!", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
-
-                    });
-        }
-
-    }
 
 
 }
