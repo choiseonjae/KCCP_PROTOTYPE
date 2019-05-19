@@ -16,16 +16,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyRoomInfo"></activity>
-        <activity android:name=".SmallMap" />
-        <activity android:name=".Map" />
-        <activity android:name=".Chatting" />
-        <activity android:name=".ChatList" />
+        <activity android:name=".MyScrap"></activity>
+        <activity android:name=".Room.MyRoomInfo" />
+        <activity android:name=".Room.SmallMap" />
+        <activity android:name=".Room.Map" />
+        <activity android:name=".Chat.Chatting" />
+        <activity android:name=".Chat.ChatList" />
         <activity android:name=".PhoneAuthActivity" />
         <activity android:name=".StartActivity" />
-        <activity android:name=".FoodList" />
-        <activity android:name=".Register" />
-        <activity android:name=".RoomInfo" />
+        <activity android:name=".Setting" />
+        <activity android:name=".Room.Register" />
+        <activity android:name=".Room.RoomInfo" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"

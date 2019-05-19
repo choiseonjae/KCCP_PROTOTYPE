@@ -41,15 +41,8 @@ public class ChatData {
         this.receiver = receiver;
     }
 
-
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("sender", sender);
-        result.put("receiver", receiver);
-        result.put("time", time);
-        result.put("message", message);
-        return result;
+    public boolean isRelation(String user1, String user2){
+        return receiver.equals(user1) && sender.equals(user2) || receiver.equals(user2) && sender.equals(user1);
     }
 
 }

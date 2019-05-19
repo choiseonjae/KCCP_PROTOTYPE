@@ -7,7 +7,7 @@ import java.io.Serializable;
 public class Board implements Serializable { //저거 implements intent에서 값 넘길때 board 객체 넘기려고 추가한거임.
 
 
-    private int boardId;
+    private String boardID;
     private String userId;
     private String title;
     private String date;
@@ -15,13 +15,23 @@ public class Board implements Serializable { //저거 implements intent에서 �
     private String filename;
     private String uri;
     private String userName;
+    private String location;
 
-    public int getBoardId() {
-        return boardId;
+    public String getLocation() {
+        return location;
     }
 
-    public void setBoardId(int boardId) {
-        this.boardId = boardId;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+
+    public String getBoardID() {
+        return boardID;
+    }
+
+    public void setBoardID(String boardID) {
+        this.boardID = boardID;
     }
 
     public String getUserId() {

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e6e6e6"
-    tools:context=".Chatting">
+    tools:context=".Chat.Chatting">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

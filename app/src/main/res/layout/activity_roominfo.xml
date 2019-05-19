@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="50dp"
-        android:background="#ece6cc"
+        android:background="#50BCDF"
         android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="3">
@@ -18,14 +18,15 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:id="@+id/call"
+            android:id="@+id/scrap"
             android:orientation="horizontal">
             >
 
-            <ImageButton
+            <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@drawable/phone"
+                android:background="@drawable/star_off"
+                android:id="@+id/star"
                 android:scaleType="fitXY" />
 
             <TextView
@@ -33,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingLeft="5dp"
-                android:text="통화"
+                android:text="스크랩"
                 android:textColor="#FFFFFF"
                 android:textSize="15sp"
                 android:textStyle="bold" />

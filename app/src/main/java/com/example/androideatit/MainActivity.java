@@ -14,8 +14,6 @@ import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,16 +26,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         backPressCloseHandler = new BackPressCloseHandler(this);
-        //로그인 되어있으면 바로 홈으로 아니면, 회원가입/로그인 뜨는 창으로
+        //자동 로그인 되어있으면 바로 홈으로 아니면, 회원가입/로그인 뜨는 창으로 이동
         if(isLogined()){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference table_user = database.getReference("User");
-            table_user.addValueEventListener(new ValueEventListener() {
+
+            Common.getDatabase("User").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.child(userID).getValue(User.class);
                     Intent homeIntent = new Intent(MainActivity.this, Home.class);
-                    Information.setUserName(user.getName());
+
+                    // id 이름 저장
+                    Common.setUserName(user.getName());
+                    Common.setMyId(userID);
+
                     Toast.makeText(MainActivity.this, user.getName()+"님 환영합니다!", Toast.LENGTH_SHORT).show();
                     startActivity(homeIntent);
                     finish();
