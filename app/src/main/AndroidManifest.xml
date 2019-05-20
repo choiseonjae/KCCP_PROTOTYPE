@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyScrap"></activity>
+        <activity android:name=".WantRoom.PrintActivity" />
+        <activity android:name=".WantRoom.WriteActivity" />
+        <activity android:name=".WantRoom.ListActivity" />
+        <activity android:name=".MyScrap" />
         <activity android:name=".Room.MyRoomInfo" />
         <activity android:name=".Room.SmallMap" />
         <activity android:name=".Room.Map" />
@@ -36,7 +39,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,5 +53,4 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
-
 </manifest>
