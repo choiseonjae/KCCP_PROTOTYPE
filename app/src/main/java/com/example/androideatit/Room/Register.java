@@ -44,17 +44,15 @@ public class Register extends Activity {
     ArrayList<String> downloadURLS = new ArrayList<>();
 
     private static final String TAG = "Register";
-    ImageView image_preview;
-    ImageButton button_choice;
-    Button button_upload;
-    EditText title;
-    EditText content;
-    String filename;
+
+    ImageView image_preview;    // 사진 등록 시 미리보기
+    ImageButton button_choice;  // 갤러리 들어가기 버튼
+    Button button_upload;   // 게시글 올리기
+    EditText title, content;
 
     private Uri filePath;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
-    private DatabaseReference database = Common.getDatabase(Common.ROOM);
     String townName;
 
     @Override
@@ -70,7 +68,7 @@ public class Register extends Activity {
         townName = getIntent().getExtras().getString("townName");
 
         if (user != null) {
-            // do your stuff
+            Toast.makeText(getApplicationContext(), "user 가 존재하지 않습니다.\n다시 로그인 해주세요.", Toast.LENGTH_LONG).show();
         } else {
             signInAnonymously();
         }
@@ -95,9 +93,7 @@ public class Register extends Activity {
         });
     }
 
-
-    //등록 이후 결과 처리. 즉, 선택한 이미지 보여주기.
-    @Override
+    @Override    //등록 이후 결과 처리. 즉, 선택한 이미지 보여주기.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //request 코드가 0이고 OK를 선택했고 데이터에 뭔가가 들어 있다면
@@ -126,7 +122,7 @@ public class Register extends Activity {
             progressDialog.show();
 
             //Unique한 파일명 / 사용자 이름, 타입
-            filename = Common.timeStamp(Common.getUserName(), ".png");
+            final String filename = Common.timeStamp(Common.getUserName(), ".png");
 
             // room 사진 storage 참조
             final StorageReference roomStorage = Common.getStorageRef("room/" + filename);
@@ -157,7 +153,7 @@ public class Register extends Activity {
                             board.setUri(uri.toString());
                             board.setLocation(townName);
 
-                            database.child(townName).push().setValue(board);
+                            roomRef.child(boardID).setValue(board);
                         }
                     });
                     progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
@@ -188,6 +184,7 @@ public class Register extends Activity {
         }
     }
 
+    // 사용자 확인
     private void signInAnonymously() {
         mAuth.signInAnonymously().addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
             @Override
@@ -202,8 +199,5 @@ public class Register extends Activity {
                     }
                 });
     }
-
-
-
 
 }

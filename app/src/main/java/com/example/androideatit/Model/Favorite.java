@@ -2,17 +2,21 @@ package com.example.androideatit.Model;
 
 public class Favorite {
 
-    private int location;
+    private String location;
 
     public Favorite(){
 
     }
 
-    public int getLocation() {
+    public Favorite(String location){
+        this.location = location;
+    }
+
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(int location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 }

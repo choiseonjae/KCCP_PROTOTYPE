@@ -39,7 +39,6 @@ public class RoomInfo extends AppCompatActivity {
         // Recycler 에서 보낸 Board 정보
         board = (Board) getIntent().getSerializableExtra("INFO");
         final String boardID = getIntent().getStringExtra("BOARD_ID");
-        final String boardUserID = board.getUserId();
 
         setContentView(R.layout.activity_roominfo);
 
@@ -155,7 +154,7 @@ public class RoomInfo extends AppCompatActivity {
                             dataSnapshot.getRef().removeValue();
                         } else {     // 즐겨 찾기
                             star.setImageDrawable(ON);
-                            scrapRef.setValue(new Favorite());
+                            scrapRef.setValue(new Favorite(board.getLocation()));
                         }
 
                     }
