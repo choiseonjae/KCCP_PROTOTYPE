@@ -35,6 +35,7 @@ public class Chatting extends AppCompatActivity {
         final String opponentID = getIntent().getExtras().getString("USER_ID");
         final String myID = Common.getMyId();
         Toolbar toolbar = (Toolbar)findViewById(R.id.opponent_view_toolbar);
+        
         toolbar.setTitle(opponentID);
         final String chatName = Common.integrate(myID, opponentID);
 

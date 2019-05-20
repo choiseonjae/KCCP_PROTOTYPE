@@ -13,28 +13,33 @@
         android:id="@+id/appbar"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+        <!--검은색 글씨 코드-->
+        <!--app:theme="@style/ThemeOverlay.AppCompat.Light"-->
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/opponent_view_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#9bbbd4"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:theme="@style/ThemeOverlay.AppCompat.Light"
+            >
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_height="30dp"
-                android:layout_width="30dp"
-                android:id="@+id/profile_image"/>
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:id="@+id/profile_image"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView"
-                android:textSize="18sp"
-                android:layout_marginLeft="25dp"
-                android:textColor="#000000"
-                android:textStyle="bold"
-                android:layout_marginStart="25dp"
-                />
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/textView"-->
+                <!--android:textSize="18sp"-->
+                <!--android:layout_marginLeft="25dp"-->
+                <!--android:textColor="#000000"-->
+                <!--android:textStyle="bold"-->
+                <!--android:layout_marginStart="25dp"-->
+                <!--/>-->
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
