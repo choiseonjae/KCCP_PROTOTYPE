@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
@@ -33,7 +34,8 @@ public class Chatting extends AppCompatActivity {
         // 상대바
         final String opponentID = getIntent().getExtras().getString("USER_ID");
         final String myID = Common.getMyId();
-
+        Toolbar toolbar = (Toolbar)findViewById(R.id.opponent_view_toolbar);
+        toolbar.setTitle(opponentID);
         final String chatName = Common.integrate(myID, opponentID);
 
         final DatabaseReference contentsRef = Common.getDatabase(Common.CHAT_INFOMAION).child(chatName);

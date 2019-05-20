@@ -1,17 +1,17 @@
 package com.example.androideatit;
 
+
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.androideatit.Adapter.RoomAdapter;
 import com.example.androideatit.Common.Common;
@@ -23,8 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-public class MyScrap extends AppCompatActivity {
-
+public class MyScrapFragment extends Fragment {
 
 
     private RoomAdapter adapter;
@@ -32,23 +31,23 @@ public class MyScrap extends AppCompatActivity {
     private final String myID = Common.getMyId();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_scrap);
-
-        // adapter 초기화
-        init();
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_my_scrap, container, false);
+        Toast.makeText(getContext(), "????",Toast.LENGTH_LONG);
+        Log.e("sSS","SSS");
+        init(view);
         getData();
-
+        return view;
     }
 
-    private void init() {  //리사이클러뷰 초기화 및 동작
-        RecyclerView recyclerView = findViewById(R.id.scrap);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+
+    private void init(View view) {  //리사이클러뷰 초기화 및 동작
+        RecyclerView recyclerView = view.findViewById(R.id.scrap);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new RoomAdapter(this);
+        adapter = new RoomAdapter(getContext());
         recyclerView.setAdapter(adapter);
     }
 
@@ -105,5 +104,6 @@ public class MyScrap extends AppCompatActivity {
                                        }
         );
     }
+
 
 }

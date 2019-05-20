@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -22,9 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androideatit.Chat.ChatList;
+import com.example.androideatit.Chat.ChatListFragment;
 import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Category;
-import com.example.androideatit.Room.Map;
+import com.example.androideatit.Room.MapFragment;
 import com.example.androideatit.ViewHolder.MenuViewHolder;
 import com.example.androideatit.WantRoom.ListActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -44,11 +44,15 @@ public class Home extends AppCompatActivity
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
 
+
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Menu");
 
@@ -66,7 +70,7 @@ public class Home extends AppCompatActivity
         });
 
         nameView = findViewById(R.id.nameView);
-        nameView.setText(Common.getUserName()+ " 님 환영합니다!");
+        nameView.setText(Common.getUserName() + " 님 환영합니다!");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -82,11 +86,11 @@ public class Home extends AppCompatActivity
         txtFullName = headerView.findViewById(R.id.txtFullName);
         txtFullName.setText(Common.getUserName());
 
-        //Load menu
-        recycler_menu = findViewById(R.id.recycler_menu);
-        recycler_menu.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        recycler_menu.setLayoutManager(layoutManager);
+//        //Load menu
+//        recycler_menu = findViewById(R.id.recycler_menu);
+//        recycler_menu.setHasFixedSize(true);
+//        layoutManager = new LinearLayoutManager(this);
+//        recycler_menu.setLayoutManager(layoutManager);
 
     }
 
@@ -121,15 +125,24 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.map)
-            startActivity(new Intent(this, Map.class));
-        if (id == R.id.scrap)
-            startActivity(new Intent(getApplicationContext(), MyScrap.class));
-        if (id == R.id.chat)
-            startActivity(new Intent(Home.this, ChatList.class));
+        if (id == R.id.map) {
+            toolbar.setTitle("방 찾기");
+            getSupportFragmentManager().beginTransaction().add(R.id.home_fragment, new MapFragment()).commit();
+//            startActivity(new Intent(this, Map.class));
+        }
+        if (id == R.id.scrap) {
+            toolbar.setTitle("내 스크랩");
+            getSupportFragmentManager().beginTransaction().add(R.id.home_fragment, new MyScrapFragment()).commit();
+//            startActivity(new Intent(getApplicationContext(), MyScrap.class));
+        }
+        if (id == R.id.chat) {
+            toolbar.setTitle("채팅 목록");
+            getSupportFragmentManager().beginTransaction().add(R.id.home_fragment, new ChatListFragment()).commit();
+//            startActivity(new Intent(Home.this, ChatList.class));
+        }
         if (id == R.id.getroom)
             startActivity(new Intent(Home.this, ListActivity.class));
-        if(id == R.id.setting)
+        if (id == R.id.setting)
             startActivity(new Intent(Home.this, Setting.class));
         if (id == R.id.nav_log_out) {
             AlertDialog.Builder alertdialog = new AlertDialog.Builder(Home.this);

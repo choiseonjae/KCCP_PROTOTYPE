@@ -24,7 +24,7 @@
             android:background="@drawable/background_right"
             android:padding="8dp"
             android:text="hello"
-            android:textColor="#fff"
+            android:textColor="#000000"
             android:textSize="18sp" />
     </RelativeLayout>
 

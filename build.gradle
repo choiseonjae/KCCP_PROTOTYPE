@@ -9,7 +9,7 @@ buildscript {
     dependencies {
 
         // 종한씨의 develop 부분
-        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.android.tools.build:gradle:3.4.1'
         // master의 부분
         //classpath 'com.android.tools.build:gradle:3.4.1'
 

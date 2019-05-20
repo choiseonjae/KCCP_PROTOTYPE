@@ -1,6 +1,7 @@
 package com.example.androideatit.Adapter;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.ChatData;
 import com.example.androideatit.R;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.type.Color;
 
 import java.util.List;
 
@@ -62,7 +64,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public ViewHolder(View itemView) {
             super(itemView);
 
-            show_message = itemView.findViewById(R.id.show_message);
+            show_message = (TextView)itemView.findViewById(R.id.show_message);
+//            show_message.setTextColor(12434877);
+//            Log.e("?????",show_message.getTextColors() + "");
             profile_image = (CircleImageView) itemView.findViewById(R.id.profile_image);
         }
     }
