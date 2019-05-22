@@ -8,8 +8,8 @@ public class Board {
     String price;
     String location;
     Long date;
-
-    public Board(String title, String content, Long date, String period, String price, String location, String gender) {
+    String id;
+    public Board(String title, String content, Long date, String period, String price, String location, String gender, String id) {
         this.title = title;
         this.content = content;
         this.date = date;
@@ -17,6 +17,7 @@ public class Board {
         this.price = price;
         this.location = location;
         this.gender = gender;
+        this.id = id;
     }
 
     public void setTitle(String title) {
@@ -73,5 +74,13 @@ public class Board {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
