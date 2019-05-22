@@ -86,11 +86,7 @@ public class Home extends AppCompatActivity
         txtFullName = headerView.findViewById(R.id.txtFullName);
         txtFullName.setText(Common.getUserName());
 
-//        //Load menu
-//        recycler_menu = findViewById(R.id.recycler_menu);
-//        recycler_menu.setHasFixedSize(true);
-//        layoutManager = new LinearLayoutManager(this);
-//        recycler_menu.setLayoutManager(layoutManager);
+        getSupportFragmentManager().beginTransaction().add(R.id.home_fragment, new MapFragment()).commit();
 
     }
 

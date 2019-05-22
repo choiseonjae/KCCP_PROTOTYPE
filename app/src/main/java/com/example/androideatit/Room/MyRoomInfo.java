@@ -2,6 +2,7 @@ package com.example.androideatit.Room;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,11 @@ public class MyRoomInfo extends AppCompatActivity {
         change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "chage", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), Register.class);
+                intent.putExtra("townName", board.getLocation());
+                intent.putExtra("BOARD", board);
+                startActivity(intent);
             }
         });
 

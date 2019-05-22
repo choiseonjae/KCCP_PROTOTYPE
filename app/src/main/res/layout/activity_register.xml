@@ -25,15 +25,13 @@
                 android:gravity="center"
                 android:weightSum="5"
                 >
-                <!--<ImageView-->
-                    <!--android:clickable="true"-->
-                    <!--android:id="@+id/close"-->
-                    <!--android:paddingLeft="8dp"-->
-                    <!--android:layout_width="25dp"-->
-                    <!--android:layout_height="25dp"-->
-                    <!--android:src="@drawable/close"-->
-                    <!--android:layout_weight="1"-->
-                    <!--/>-->
+                <ImageButton
+                    android:id="@+id/local_album"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/add_picture"
+                    android:clickable="true"
+                    />
                 <TextView
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
@@ -57,6 +55,7 @@
                 android:id="@+id/preview"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:background="@drawable/bottom_border"
                 android:layout_centerHorizontal="true"/> <!--사진 선택시 보이는 곳-->
             <TableLayout
                 android:paddingTop="10dp"
@@ -102,50 +101,52 @@
                     <EditText
                         android:id="@+id/contract_type"
                         android:layout_width="fill_parent"
-                        android:hint="'월세/00만원' 형태로 작성해주세요"
+                        android:hint="00만원"
+                        android:inputType="number"
                         android:textSize="12sp"
                         />
                 </TableRow>
-                <!--<TableRow-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--&gt;-->
+                <TableRow>
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:text="입주일: "
+                        android:gravity="center"
+                        android:textStyle="bold"
 
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:text="계약 기간: "-->
-                <!--android:textStyle="bold" />-->
+                        />
+                    <DatePicker
+                        android:id="@+id/start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:spinnersShown="true"
+                        android:datePickerMode="spinner"
+                        android:calendarViewShown="false"
 
-                <!--<EditText-->
-                <!--android:id="@+id/startDay"-->
-                <!--android:layout_width="50dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="3"-->
-                <!--android:inputType="date"-->
-                <!--android:textSize="12sp" />-->
-
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginRight="5dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:text=" ~ "-->
-                <!--android:textStyle="bold" />-->
+                        />
 
 
-                <!--<EditText-->
-                <!--android:layout_weight="3"-->
-                <!--android:width="75dp"-->
-                <!--android:inputType="date"-->
-                <!--android:id="@+id/endDay"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:textSize="12sp"-->
-                <!--/>-->
-                <!--</TableRow>-->
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:layout_gravity="center_vertical"
+                        android:text="계약만료: "
+                        android:gravity="center"
+                        android:textStyle="bold"
+
+                        />
+                    <DatePicker
+                        android:id="@+id/end_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="80dp"
+                        android:spinnersShown="true"
+                        android:datePickerMode="spinner"
+                        android:calendarViewShown="false"
+
+                        />
+
+
+                </TableRow>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -275,28 +276,34 @@
                 </TableRow>
 
 
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:weightSum="10"
+                    >
+                    <TextView
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="특이사항 : "
+                        />
 
+                    <EditText
+                        android:id="@+id/uniqueness"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="기타 특이사항을 입력하세요"
+                        android:textSize="12sp"
+
+                        />
+                </TableRow>
 
 
             </TableLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="horizontal"
-                android:paddingTop="5dp"
-                android:paddingLeft="15dp"
 
-                >
-                <ImageButton
-                    android:id="@+id/local_album"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/add_picture"
-                    android:clickable="true"
-                    />
-
-            </LinearLayout>
 
         </LinearLayout>
     </FrameLayout>
