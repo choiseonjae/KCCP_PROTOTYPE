@@ -124,7 +124,8 @@ public class Home extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new WantRoomFragment()).commit();
         }
         if (id == R.id.setting) {
-            startActivity(new Intent(Home.this, Setting.class));
+            toolbar.setTitle("설정");
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new SettingFragment()).commit();
         }
         if (id == R.id.nav_log_out) {
             AlertDialog.Builder alertdialog = new AlertDialog.Builder(Home.this);

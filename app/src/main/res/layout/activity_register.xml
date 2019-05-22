@@ -294,6 +294,7 @@
                         android:id="@+id/uniqueness"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
                         android:hint="기타 특이사항을 입력하세요"
                         android:textSize="12sp"
 
