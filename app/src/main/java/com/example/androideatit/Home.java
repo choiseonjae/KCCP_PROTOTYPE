@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,31 +21,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androideatit.Chat.ChatList;
 import com.example.androideatit.Chat.ChatListFragment;
 import com.example.androideatit.Common.Common;
-import com.example.androideatit.Model.Category;
 import com.example.androideatit.Room.MapFragment;
-import com.example.androideatit.ViewHolder.MenuViewHolder;
-import com.example.androideatit.WantRoom.ListActivity;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView nameView;
-    FirebaseDatabase database;
-    DatabaseReference category;
-    FirebaseRecyclerAdapter<Category, MenuViewHolder> adapter;
-
     TextView txtFullName;
-
-    RecyclerView recycler_menu;
-    RecyclerView.LayoutManager layoutManager;
-
-
     Toolbar toolbar;
 
     @Override
@@ -56,9 +41,6 @@ public class Home extends AppCompatActivity
         setSupportActionBar(toolbar);
         toolbar.setTitle("Menu");
 
-        //Init Firebase
-        database = FirebaseDatabase.getInstance();
-        category = database.getReference("Category");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +68,7 @@ public class Home extends AppCompatActivity
         txtFullName = headerView.findViewById(R.id.txtFullName);
         txtFullName.setText(Common.getUserName());
 
-        getSupportFragmentManager().beginTransaction().add(R.id.home_fragment, new MapFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new MapFragment()).commit();
 
     }
 
@@ -121,25 +103,29 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
         if (id == R.id.map) {
             toolbar.setTitle("방 찾기");
-            getSupportFragmentManager().beginTransaction().add(R.id.home_fragment, new MapFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new MapFragment()).commit();
 //            startActivity(new Intent(this, Map.class));
         }
         if (id == R.id.scrap) {
             toolbar.setTitle("내 스크랩");
-            getSupportFragmentManager().beginTransaction().add(R.id.home_fragment, new MyScrapFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new MyScrapFragment()).commit();
 //            startActivity(new Intent(getApplicationContext(), MyScrap.class));
         }
         if (id == R.id.chat) {
             toolbar.setTitle("채팅 목록");
-            getSupportFragmentManager().beginTransaction().add(R.id.home_fragment, new ChatListFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new ChatListFragment()).commit();
 //            startActivity(new Intent(Home.this, ChatList.class));
         }
-        if (id == R.id.getroom)
-            startActivity(new Intent(Home.this, ListActivity.class));
-        if (id == R.id.setting)
+        if (id == R.id.getroom) {
+            toolbar.setTitle("방 구하기");
+            getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new WantRoomFragment()).commit();
+        }
+        if (id == R.id.setting) {
             startActivity(new Intent(Home.this, Setting.class));
+        }
         if (id == R.id.nav_log_out) {
             AlertDialog.Builder alertdialog = new AlertDialog.Builder(Home.this);
             alertdialog.setTitle("로그아웃");
