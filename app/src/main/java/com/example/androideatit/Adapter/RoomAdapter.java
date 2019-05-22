@@ -107,7 +107,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ItemViewHolder
 
         void onBind(Board board, String boardID) {
             textView1.setText(board.getTitle());
-            textView2.setText(board.getContent());
+            textView2.setText(board.getContractType());
             this.board = board;
             this.boardID = boardID;
 

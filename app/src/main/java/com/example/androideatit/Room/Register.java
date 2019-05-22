@@ -14,11 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.androideatit.Common.Common;
 import com.example.androideatit.Model.Board;
-import com.example.androideatit.Model.BoardID;
 import com.example.androideatit.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,9 +47,10 @@ public class Register extends Activity {
     private static final String TAG = "Register";
 
     ImageView image_preview;    // 사진 등록 시 미리보기
-    ImageButton button_choice;  // 갤러리 들어가기 버튼
+    ImageButton localAlbum;  // 갤러리 들어가기 버튼
     Button button_upload;   // 게시글 올리기
-    EditText title, content;
+    EditText editTitle, editContractType, editRoomAverage, editFloor, editAdminExpenses;
+    RadioGroup roomType;
 
     private Uri filePath;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -61,10 +63,17 @@ public class Register extends Activity {
         setContentView(R.layout.activity_register);
 
         image_preview = (ImageView) findViewById(R.id.preview);            //미리보기
-        button_choice = (ImageButton) findViewById(R.id.camera_connect);  //사진선택
+        localAlbum = (ImageButton) findViewById(R.id.local_album);  //사진선택
         button_upload = (Button) findViewById(R.id.bt_upload);            //이거 클릭시 데이터 베이스에 업로드
-        title = (EditText) findViewById(R.id.EditText_title);
-        content = (EditText) findViewById(R.id.EditText_content);
+
+        // 제목, 계약 형태, 방 평수, 층수, 관리비, 방 형태 의 EditText
+        editTitle = (EditText) findViewById(R.id.EditText_title);
+        editContractType = findViewById(R.id.contract_type);
+        editRoomAverage = (EditText) findViewById(R.id.room_average);
+        editFloor = (EditText) findViewById(R.id.floor);
+        editAdminExpenses = (EditText) findViewById(R.id.admin_expenses);
+        roomType = (RadioGroup) findViewById(R.id.room_type);
+
         townName = getIntent().getExtras().getString("townName");
 
         if (user != null) {
@@ -73,7 +82,7 @@ public class Register extends Activity {
             signInAnonymously();
         }
         //버튼 클릭 이벤트(사진선택)
-        button_choice.setOnClickListener(new View.OnClickListener() { //버튼 클릭했을시 사진첩 접근
+        localAlbum.setOnClickListener(new View.OnClickListener() { //버튼 클릭했을시 사진첩 접근
             @Override
             public void onClick(View view) {
                 //이미지를 선택
@@ -127,6 +136,13 @@ public class Register extends Activity {
             // room 사진 storage 참조
             final StorageReference roomStorage = Common.getStorageRef("room/" + filename);
 
+
+            int seleted = roomType.getCheckedRadioButtonId();
+            //getCheckedRadioButtonId() 의 리턴값은 선택된 RadioButton 의 id 값.
+            final RadioButton seletedRoomType = (RadioButton) findViewById(seleted);
+
+
+
             //storage 주소와 폴더 파일명을 지정해 준다.
             roomStorage.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
@@ -145,9 +161,13 @@ public class Register extends Activity {
 
                             board.setUserId(Common.getMyId());
                             board.setBoardID(boardID);
-                            board.setTitle(title.getText().toString());
+                            board.setTitle(editTitle.getText().toString());
                             board.setDate(Common.timeStamp());
-                            board.setContent(content.getText().toString());
+                            board.setContractType(editContractType.getText().toString());
+                            board.setAdminExpenses(editAdminExpenses.getText().toString());
+                            board.setFloor(editFloor.getText().toString());
+                            board.setRoomAverge(editRoomAverage.getText().toString());
+                            board.setRoomType(seletedRoomType.getText().toString());
                             board.setFilename(filename);
                             board.setUserName(Common.getUserName());
                             board.setUri(uri.toString());

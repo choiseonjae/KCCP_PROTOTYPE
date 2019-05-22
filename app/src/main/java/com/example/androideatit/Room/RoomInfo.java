@@ -73,7 +73,7 @@ public class RoomInfo extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.imageview);
 
         textView1.setText(board.getTitle());
-        textView2.setText(board.getContent());
+        textView2.setText(board.getContractType());
 
         Picasso.with(
 
