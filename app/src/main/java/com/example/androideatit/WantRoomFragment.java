@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +35,8 @@ public class WantRoomFragment extends Fragment {
     private List<String> docIdlist = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ListViewAdapter adapter;
-    private Button writeButton;
+    private FloatingActionButton writeButton;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

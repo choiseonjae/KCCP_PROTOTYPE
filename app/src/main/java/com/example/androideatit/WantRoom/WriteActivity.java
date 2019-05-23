@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.androideatit.Common.Common;
 import com.example.androideatit.R;
 import com.github.irshulx.Editor;
 import com.github.irshulx.EditorListener;
@@ -81,11 +82,11 @@ public class WriteActivity extends AppCompatActivity {
                 else if(selected == 2) gender = "여자";
                 location = spinLocation.getSelectedItem().toString();
                 period = spinPeriod.getSelectedItem().toString();
-
+                String id = Common.getMyId();
                 if(title == null || price == null || gender == null || content.length() == 0)
                     Toast.makeText(WriteActivity.this, "모든 항목을 입력하지 않았습니다.", Toast.LENGTH_SHORT).show();
                 else {
-                    board = new Board(title, content, date, period, price, location, gender);
+                    board = new Board(title, content, date, period, price, location, gender, id);
                     showDialog();
                 }
             }
@@ -116,8 +117,7 @@ public class WriteActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 Toast.makeText(WriteActivity.this, "게시가 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(WriteActivity.this, ListActivity.class);
-                                startActivity(intent);
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
