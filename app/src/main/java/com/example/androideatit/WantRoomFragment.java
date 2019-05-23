@@ -37,6 +37,7 @@ public class WantRoomFragment extends Fragment {
     private ListViewAdapter adapter;
     private FloatingActionButton writeButton;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                 Bundle savedInstanceState) {

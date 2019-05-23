@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -49,12 +50,13 @@ public class Register extends Activity {
     ImageView image_preview;    // 사진 등록 시 미리보기
     ImageButton localAlbum;  // 갤러리 들어가기 버튼
     Button button_upload;   // 게시글 올리기
-    EditText editTitle, editContractType, editRoomAverage, editFloor, editAdminExpenses;
+    EditText editTitle, editContractType, editRoomAverage, editFloor, editAdminExpenses, editUniqueness;
     RadioGroup roomType;
+    DatePicker startDate, endDate;
 
     private Uri filePath;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseUser user = mAuth.getCurrentUser();
+//    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//    FirebaseUser user = mAuth.getCurrentUser();
     String townName;
 
     @Override
@@ -62,25 +64,42 @@ public class Register extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        image_preview = (ImageView) findViewById(R.id.preview);            //미리보기
-        localAlbum = (ImageButton) findViewById(R.id.local_album);  //사진선택
-        button_upload = (Button) findViewById(R.id.bt_upload);            //이거 클릭시 데이터 베이스에 업로드
-
-        // 제목, 계약 형태, 방 평수, 층수, 관리비, 방 형태 의 EditText
-        editTitle = (EditText) findViewById(R.id.EditText_title);
-        editContractType = findViewById(R.id.contract_type);
-        editRoomAverage = (EditText) findViewById(R.id.room_average);
-        editFloor = (EditText) findViewById(R.id.floor);
-        editAdminExpenses = (EditText) findViewById(R.id.admin_expenses);
-        roomType = (RadioGroup) findViewById(R.id.room_type);
-
         townName = getIntent().getExtras().getString("townName");
+        Board board = (Board)getIntent().getSerializableExtra("BOARD");
 
-        if (user != null) {
-            Toast.makeText(getApplicationContext(), "user 가 존재하지 않습니다.\n다시 로그인 해주세요.", Toast.LENGTH_LONG).show();
-        } else {
-            signInAnonymously();
+            image_preview = (ImageView) findViewById(R.id.preview);            //미리보기
+            localAlbum = (ImageButton) findViewById(R.id.local_album);  //사진선택
+            button_upload = (Button) findViewById(R.id.bt_upload);            //이거 클릭시 데이터 베이스에 업로드
+
+            // 제목, 계약 형태, 방 평수, 층수, 관리비, 방 형태 의 EditText
+            editTitle = (EditText) findViewById(R.id.EditText_title);
+            editContractType = findViewById(R.id.contract_type);
+            editRoomAverage = (EditText) findViewById(R.id.room_average);
+            editFloor = (EditText) findViewById(R.id.floor);
+            editAdminExpenses = (EditText) findViewById(R.id.admin_expenses);
+            roomType = (RadioGroup) findViewById(R.id.room_type);
+            editUniqueness = (EditText) findViewById(R.id.uniqueness);
+
+            startDate = (DatePicker) findViewById(R.id.start_date);
+            endDate = (DatePicker) findViewById(R.id.end_date);
+
+        if(board != null) {
+            editTitle.setText(board.getTitle());
+            editContractType.setText(board.getContractType());
+            editRoomAverage.setText(board.getRoomAverge());
+            editFloor.setText(board.getFloor());
+            editAdminExpenses.setText(board.getAdminExpenses());
+            editUniqueness.setText(board.getUniqueness());
         }
+
+
+
+//        if (user != null) {
+//            Toast.makeText(getApplicationContext(), "user 가 존재하지 않습니다.\n다시 로그인 해주세요.", Toast.LENGTH_LONG).show();
+//        } else {
+//            signInAnonymously();
+//        }
+
         //버튼 클릭 이벤트(사진선택)
         localAlbum.setOnClickListener(new View.OnClickListener() { //버튼 클릭했을시 사진첩 접근
             @Override
@@ -172,6 +191,13 @@ public class Register extends Activity {
                             board.setUserName(Common.getUserName());
                             board.setUri(uri.toString());
                             board.setLocation(townName);
+                            board.setStartDay(startDate.getDayOfMonth());
+                            board.setStartMonth(startDate.getMonth());
+                            board.setStartYear(startDate.getYear());
+                            board.setUniqueness(editUniqueness.getText().toString());
+                            board.setEndDay(endDate.getDayOfMonth());
+                            board.setEndMonth(endDate.getMonth());
+                            board.setEndYear(endDate.getYear());
 
                             roomRef.child(boardID).setValue(board);
                         }
@@ -204,20 +230,20 @@ public class Register extends Activity {
         }
     }
 
-    // 사용자 확인
-    private void signInAnonymously() {
-        mAuth.signInAnonymously().addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
-            @Override
-            public void onSuccess(AuthResult authResult) {
-                // do your stuff
-            }
-        })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Log.e(TAG, "signInAnonymously:FAILURE", exception);
-                    }
-                });
-    }
+//    // 사용자 확인
+//    private void signInAnonymously() {
+//        mAuth.signInAnonymously().addOnSuccessListener(this, new OnSuccessListener<AuthResult>() {
+//            @Override
+//            public void onSuccess(AuthResult authResult) {
+//                // do your stuff
+//            }
+//        })
+//                .addOnFailureListener(this, new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        Log.e(TAG, "signInAnonymously:FAILURE", exception);
+//                    }
+//                });
+//    }
 
 }

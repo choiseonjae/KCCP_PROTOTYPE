@@ -44,4 +44,9 @@
         <item>남</item>
         <item>녀</item>
     </string-array>
+    <string-array name="rentType">
+        <item>월세</item>
+        <item>전세</item>
+    </string-array>
+
 </resources>

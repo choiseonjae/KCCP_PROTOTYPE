@@ -7,8 +7,8 @@ import java.io.Serializable;
 public class Board implements Serializable { //저거 implements intent에서 값 넘길때 board 객체 넘기려고 추가한거임.
 
 
-    private String boardID, userId, title, date, roomType, contractType, floor, adminExpenses, roomAverge, filename, uri, userName, location;
-
+    private String boardID, userId, title, date, roomType, contractType, floor, adminExpenses, roomAverge, filename, uri, userName, location, uniqueness;
+    private int startDay, startMonth, startYear, endDay, endMonth, endYear;
     public String getBoardID() {
         return boardID;
     }
@@ -111,5 +111,61 @@ public class Board implements Serializable { //저거 implements intent에서 �
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public int getStartDay() {
+        return startDay;
+    }
+
+    public void setStartDay(int startDay) {
+        this.startDay = startDay;
+    }
+
+    public int getStartMonth() {
+        return startMonth;
+    }
+
+    public void setStartMonth(int startMonth) {
+        this.startMonth = startMonth;
+    }
+
+    public int getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(int startYear) {
+        this.startYear = startYear;
+    }
+
+    public int getEndDay() {
+        return endDay;
+    }
+
+    public void setEndDay(int endDay) {
+        this.endDay = endDay;
+    }
+
+    public int getEndMonth() {
+        return endMonth;
+    }
+
+    public void setEndMonth(int endMonth) {
+        this.endMonth = endMonth;
+    }
+
+    public int getEndYear() {
+        return endYear;
+    }
+
+    public void setEndYear(int endYear) {
+        this.endYear = endYear;
+    }
+
+    public String getUniqueness() {
+        return uniqueness;
+    }
+
+    public void setUniqueness(String uniqueness) {
+        this.uniqueness = uniqueness;
     }
 }

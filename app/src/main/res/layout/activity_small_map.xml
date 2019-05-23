@@ -17,13 +17,13 @@
             android:layout_height="50dp"
             android:text="검색"
             />
-        <Button
-            android:id="@+id/button_register"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:onClick="register"
-            android:text="방등록"
-            />
+        <!--<Button-->
+            <!--android:id="@+id/button_register"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:onClick="register"-->
+            <!--android:text="방등록"-->
+            <!--/>-->
     </LinearLayout>
     <TextView
         android:id="@+id/townTextView"

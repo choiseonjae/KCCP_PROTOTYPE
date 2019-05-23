@@ -34,12 +34,13 @@ public class MapFragment extends Fragment {
             town[i].setOnObjectClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), SmallMap.class);
-                    //원래 액티비티 화면을 제거하지는 않음.
-                    intent.setFlags(intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    // 이름을 넘겨준다.
-                    intent.putExtra("townName", townName);
-                    startActivity(intent);
+
+                    Fragment smallMapFragment = new SmallMapFragment(); // Fragment 생성
+                    Bundle bundle = new Bundle(); // 파라미터는 전달할 데이터 개수
+                    bundle.putString("townName", townName); // key , value
+                    smallMapFragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().add(R.id.home_fragment, smallMapFragment).commit();
+
                 }
             });
         }
