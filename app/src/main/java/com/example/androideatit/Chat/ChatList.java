@@ -40,7 +40,7 @@ public class ChatList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_list);
+        setContentView(R.layout.chatting_list);
 
         // 사용자 채팅 리스트를 firebase에서 받아올 변수랑 연결
         final ListView listView = (ListView) findViewById(R.id.listView);
