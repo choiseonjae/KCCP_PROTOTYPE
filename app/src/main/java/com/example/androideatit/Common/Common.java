@@ -36,13 +36,13 @@ public class Common {
 
     private static String MY_ID;
 
-    private static final int[] townImages = {R.id.dobong_image, R.id.nowon_image, R.id.dongdaemoon_image, R.id.enpyeong_image,
-            R.id.joong_image, R.id.jongro_image, R.id.seodaemoon_image, R.id.seongbook_image,
-            R.id.seongdong_image, R.id.guangjin_image, R.id.gangnam_image, R.id.gangbook_image,
-            R.id.gangdong_image, R.id.gangseo_image, R.id.guanak_image, R.id.guro_image,
-            R.id.geumcheon_image, R.id.dongjak_image, R.id.joonglang_image, R.id.mapo_image,
-            R.id.seocho_image, R.id.songpa_image, R.id.yangcheon_image, R.id.yeongdeungpo_image,
-            R.id.yongsan_image};
+    private static final int[] townImages = {R.id.home_dobong, R.id.home_nowon, R.id.home_dongdaemoon, R.id.home_enpyeong,
+            R.id.home_joong, R.id.home_jongro, R.id.home_seodaemoon, R.id.home_seongbook,
+            R.id.home_seongdong, R.id.home_guangjin, R.id.home_gangnam, R.id.home_gangbook,
+            R.id.home_gangdong, R.id.home_gangseo, R.id.home_guanak, R.id.home_guro,
+            R.id.home_geumcheon, R.id.home_dongjak, R.id.home_joonglang, R.id.home_mapo,
+            R.id.home_seocho, R.id.home_songpa, R.id.home_yangcheon, R.id.home_yeongdeungpo,
+            R.id.home_yongsan};
 
     private static final String[] townNames = {"도봉구", "노원구", "동대문구", "은평구", "중구", "종로구",
             "서대문구", "성북구", "성동구", "광진구", "강남구", "강북구", "강동구",

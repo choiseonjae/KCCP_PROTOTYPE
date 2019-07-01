@@ -19,13 +19,12 @@ import android.widget.Toast;
 
 import com.example.androideatit.Chat.ChatListFragment;
 import com.example.androideatit.Common.Common;
-import com.example.androideatit.Room.MapFragment;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView nameView;
-    TextView txtFullName;
+//    private TextView nameView;
+    private TextView userId;
     Toolbar toolbar;
 
     @Override
@@ -36,10 +35,6 @@ public class Home extends AppCompatActivity
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Menu");
-
-
-        nameView = findViewById(R.id.nameView);
-        nameView.setText(Common.getUserName() + " 님 환영합니다!");
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,10 +47,8 @@ public class Home extends AppCompatActivity
 
         //Set Name for user
         View headerView = navigationView.getHeaderView(0);
-        txtFullName = headerView.findViewById(R.id.txtFullName);
-        txtFullName.setText(Common.getUserName());
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new MapFragment()).commit();
+        userId = headerView.findViewById(R.id.nav_id);
+        userId.setText(Common.getMyId());
 
     }
 
@@ -90,31 +83,21 @@ public class Home extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-
-        if (id == R.id.map) {
-            toolbar.setTitle("방 찾기");
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new MapFragment()).commit();
-//            startActivity(new Intent(this, Map.class));
-        }
-        if (id == R.id.scrap) {
+        if (id == R.id.nav_favorite) {
             toolbar.setTitle("내 스크랩");
             getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new MyScrapFragment()).commit();
 //            startActivity(new Intent(getApplicationContext(), MyScrap.class));
         }
-        if (id == R.id.chat) {
+        if (id == R.id.nav_chatting) {
             toolbar.setTitle("채팅 목록");
             getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new ChatListFragment()).commit();
 //            startActivity(new Intent(Home.this, ChatList.class));
         }
-        if (id == R.id.getroom) {
-            toolbar.setTitle("방 구하기");
-            getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new WantRoomFragment()).commit();
-        }
-        if (id == R.id.setting) {
+        if (id == R.id.nav_setting) {
             toolbar.setTitle("설정");
             getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, new SettingFragment()).commit();
         }
-        if (id == R.id.nav_log_out) {
+        if (id == R.id.nav_logout) {
             AlertDialog.Builder alertdialog = new AlertDialog.Builder(Home.this);
             alertdialog.setTitle("로그아웃");
             alertdialog.setMessage("로그아웃 하시겠습니까?");
