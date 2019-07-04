@@ -35,8 +35,8 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ItemViewHolder
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // Layout Inflater를 이용하여 전 단계에서 만들었던 item.xml을 inflate 한다. / return 인자는 ViewHolder
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        // Layout Inflater를 이용하여 전 단계에서 만들었던 post_list_item.xml을 inflate 한다. / return 인자는 ViewHolder
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_list_item, parent, false);
         return new ItemViewHolder(view);
     }
 

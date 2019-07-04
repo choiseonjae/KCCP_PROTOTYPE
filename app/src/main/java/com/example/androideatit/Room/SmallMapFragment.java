@@ -1,8 +1,6 @@
 package com.example.androideatit.Room;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,7 +34,7 @@ public class SmallMapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_small_map, container, false);
+        View view = inflater.inflate(R.layout.post_list, container, false);
         try {
             townTextView = view.findViewById(R.id.townTextView);
 
