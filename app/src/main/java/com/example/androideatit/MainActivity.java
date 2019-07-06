@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-//commit Test
+//되어라 커밋!!!!!
     private BackPressCloseHandler backPressCloseHandler;
     private String userID;
     TextView txtSlogan;
