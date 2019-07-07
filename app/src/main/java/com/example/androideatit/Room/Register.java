@@ -50,7 +50,7 @@ public class Register extends Activity {
     ImageView image_preview;    // 사진 등록 시 미리보기
     ImageButton localAlbum;  // 갤러리 들어가기 버튼
     Button button_upload;   // 게시글 올리기
-    EditText editTitle, editContractType, editRoomAverage, editFloor, editAdminExpenses, editUniqueness;
+    EditText editRoomAverage, editFloor, editAdminExpenses, editUniqueness;
     RadioGroup roomType;
     DatePicker startDate, endDate;
 
@@ -68,37 +68,28 @@ public class Register extends Activity {
         Board board = (Board)getIntent().getSerializableExtra("BOARD");
 
             image_preview = (ImageView) findViewById(R.id.preview);            //미리보기
-            localAlbum = (ImageButton) findViewById(R.id.local_album);  //사진선택
+            localAlbum = (ImageButton) findViewById(R.id.register_LocalAlbum);  //사진선택
             button_upload = (Button) findViewById(R.id.bt_upload);            //이거 클릭시 데이터 베이스에 업로드
 
             // 제목, 계약 형태, 방 평수, 층수, 관리비, 방 형태 의 EditText
-            editTitle = (EditText) findViewById(R.id.EditText_title);
-            editContractType = findViewById(R.id.contract_type);
+//            editContractType = findViewById(R.id.register_contract_type);
             editRoomAverage = (EditText) findViewById(R.id.room_average);
             editFloor = (EditText) findViewById(R.id.floor);
-            editAdminExpenses = (EditText) findViewById(R.id.admin_expenses);
+            editAdminExpenses = (EditText) findViewById(R.id.register_managingFee);
             roomType = (RadioGroup) findViewById(R.id.room_type);
-            editUniqueness = (EditText) findViewById(R.id.uniqueness);
+            editUniqueness = (EditText) findViewById(R.id.register_uniqueness);
 
             startDate = (DatePicker) findViewById(R.id.start_date);
             endDate = (DatePicker) findViewById(R.id.end_date);
 
         if(board != null) {
-            editTitle.setText(board.getTitle());
-            editContractType.setText(board.getContractType());
+//            editTitle.setText(board.getTitle());
+//            editContractType.setText(board.getContractType());
             editRoomAverage.setText(board.getRoomAverge());
             editFloor.setText(board.getFloor());
             editAdminExpenses.setText(board.getAdminExpenses());
             editUniqueness.setText(board.getUniqueness());
         }
-
-
-
-//        if (user != null) {
-//            Toast.makeText(getApplicationContext(), "user 가 존재하지 않습니다.\n다시 로그인 해주세요.", Toast.LENGTH_LONG).show();
-//        } else {
-//            signInAnonymously();
-//        }
 
         //버튼 클릭 이벤트(사진선택)
         localAlbum.setOnClickListener(new View.OnClickListener() { //버튼 클릭했을시 사진첩 접근
@@ -180,9 +171,8 @@ public class Register extends Activity {
 
                             board.setUserId(Common.getMyId());
                             board.setBoardID(boardID);
-                            board.setTitle(editTitle.getText().toString());
                             board.setDate(Common.timeStamp());
-                            board.setContractType(editContractType.getText().toString());
+//                            board.setContractType(editContractType.getText().toString());
                             board.setAdminExpenses(editAdminExpenses.getText().toString());
                             board.setFloor(editFloor.getText().toString());
                             board.setRoomAverge(editRoomAverage.getText().toString());

@@ -35,57 +35,31 @@ public class RoomInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_roominfo);
 
         // Recycler 에서 보낸 Board 정보
         board = (Board) getIntent().getSerializableExtra("INFO");
         final String boardID = getIntent().getStringExtra("BOARD_ID");
 
-        setContentView(R.layout.activity_roominfo);
 
         // 각 버튼들과 바인딩
-        LinearLayout chat = (LinearLayout) findViewById(R.id.chat);
-        LinearLayout report = (LinearLayout) findViewById(R.id.report);
+//        LinearLayout chat = (LinearLayout) findViewById(R.id.chat);
+        LinearLayout report = (LinearLayout) findViewById(R.id.roomInfo_like);
 
 
         // 즐겨찾기 버튼 초기화
         initFavorite(myID, boardID);
 
-        chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RoomInfo.this, Chatting.class);
-                intent.putExtra("USER_NAME", board.getUserName());
-                intent.putExtra("USER_ID", board.getUserId());
-                startActivity(intent);
-            }
-        });
+//        chat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(RoomInfo.this, Chatting.class);
+//                intent.putExtra("USER_NAME", board.getUserName());
+//                intent.putExtra("USER_ID", board.getUserId());
+//                startActivity(intent);
+//            }
+//        });
 
-        report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reportAlert();
-            }
-        });
-
-        // xml과 바인딩
-        TextView textView1 = (TextView) findViewById(R.id.textView1);
-        TextView textView2 = (TextView) findViewById(R.id.textView2);
-        ImageView imageView = (ImageView) findViewById(R.id.imageview);
-
-        textView1.setText(board.getTitle());
-        textView2.setText(board.getContractType());
-
-        Picasso.with(
-
-                getApplicationContext()).
-
-                load(board.getUri()).
-
-                fit().
-
-                centerInside().
-
-                into(imageView);
 
     }
 
@@ -114,14 +88,14 @@ public class RoomInfo extends AppCompatActivity {
     // 내 ID, 보드 ID --(입력)--> 즐겨찾기를 위한 초기화 작업
     private void initFavorite(final String myID, final String boardID) {
 
-        final ImageView star = findViewById(R.id.star);
+        final ImageView star = findViewById(R.id.roomInfo_like_image_view);
 
         // 즐겨 찾기 DB 참조
         final DatabaseReference scrapRef = Common.getDatabase("Scrap").child(myID).child(boardID);
 
         // 별 이미지
-        final Drawable ON = getResources().getDrawable(R.drawable.star_on, getApplicationContext().getTheme());
-        final Drawable OFF = getResources().getDrawable(R.drawable.star_off, getApplicationContext().getTheme());
+        final Drawable ON = getResources().getDrawable(R.drawable.like_on, getApplicationContext().getTheme());
+        final Drawable OFF = getResources().getDrawable(R.drawable.like, getApplicationContext().getTheme());
 
         // 방 입장 시 원래 상태로 초기화
         scrapRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -142,7 +116,7 @@ public class RoomInfo extends AppCompatActivity {
 
 
         // 즐겨 찾기 클릭 시
-        findViewById(R.id.scrap).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.roomInfo_like).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 scrapRef.addListenerForSingleValueEvent(new ValueEventListener() {

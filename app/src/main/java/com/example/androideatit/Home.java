@@ -19,13 +19,16 @@ import android.widget.Toast;
 
 import com.example.androideatit.Chat.ChatListFragment;
 import com.example.androideatit.Common.Common;
+import com.example.androideatit.Room.SmallMap;
+
+import java.util.Iterator;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-//    private TextView nameView;
+    //    private TextView nameView;
     private TextView userId;
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,26 @@ public class Home extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         userId = headerView.findViewById(R.id.nav_id);
         userId.setText(Common.getMyId());
+
+        int[] cityId = Common.getTownImages();
+
+        for (int i = 0; i < Common.getTownImages().length; i++) {
+
+            final String cityName = Common.getTownNames()[i];
+
+            findViewById(cityId[i]).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), SmallMap.class);
+
+                    intent.putExtra("townName", cityName);
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), cityName, Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+
 
     }
 
